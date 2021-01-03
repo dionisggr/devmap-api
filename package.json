@@ -1,0 +1,41 @@
+{
+  "name": "devmap-api",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "env NODE_ENV=test mocha --require test/setup.js --watchAll=false",
+    "prestart": "npm test",
+    "start": "node src/server.js",
+    "predev": "npm test",
+    "dev": "nodemon src/server.js",
+    "predeploy": "npm audit",
+    "deploy": "git push heroku main",
+    "migrate": "postgrator --config postgrator-config.js",
+    "migrate:test": "env NODE_ENV=test npm run migrate",
+    "migrate:production": "heroku run npm run migrate"
+  },
+  "keywords": [],
+  "engines": {
+    "node": "12.19.0"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "helmet": "^4.2.0",
+    "morgan": "^1.10.0",
+    "nodemon": "^2.0.6",
+    "winston": "^3.3.3",
+    "xss": "^1.0.8"
+  },
+  "devDependencies": {
+    "chai": "^4.2.0",
+    "mocha": "^8.2.1",
+    "postgrator-cli": "^3.2.0",
+    "supertest": "^6.0.1",
+    "uuid": "^8.3.2"
+  }
+}
