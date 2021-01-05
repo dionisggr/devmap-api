@@ -2,12 +2,13 @@ const express = require('express');
 const UsersService = require('./users-service');
 const UsersRouter = express.Router();
 const xss = require('xss');
+const { authorization } = require('./validation');
 
 UsersRouter.route('/users')
   .all((req, res, next) => {
     next();
   })
-  .get((req, res) => {
+  .get(authorization, (req, res) => {
     const db = req.app.get('db');
     UsersService.getUsers(db)
       .then(users => {
@@ -18,7 +19,7 @@ UsersRouter.route('/users')
             id: user.id, username: xss(user.username), firstName: xss(user.first_name),
             lastName: xss(user.last_name), email: xss(user.email), 
             tools: xss(user.tools), startDate: xss(user.startDate),
-            github: xss(user.github), logged: user.logged
+            github: xss(user.github)
           };
           delete user.user_id;
           delete user.start_date;
@@ -31,16 +32,16 @@ UsersRouter.route('/users')
     const db = req.app.get('db');
     const {
       username, firstName, lastName, email, 
-      tools, startDate, github, logged
+      tools, startDate, github
     } = req.body;
     const newUser = {
       username: xss(username), first_name: xss(firstName),
       last_name: xss(lastName), email: xss(email), 
       tools: xss(tools), start_date: xss(startDate),
-      github: xss(github), logged
+      github: xss(github)
     };
     Object.entries(newUser).forEach(([key, value]) => {
-      if (key === 'tools' || key === 'github' || key === 'start_date' || (key === 'logged' && !value)) return;
+      if (key === 'tools' || key === 'github' || key === 'start_date') return;
       if (!value) next({message: 'Missing values.'});
     });
     UsersService.addUser(db, newUser)
@@ -49,14 +50,14 @@ UsersRouter.route('/users')
           id: user.user_id, username: xss(user.username), firstName: xss(user.first_name),
           lastName: xss(user.last_name), email: xss(user.email), 
           tools: xss(user.tools), startDate: xss(user.start_date),
-          github: xss(user.github), logged: user.logged
+          github: xss(user.github)
         };
         return res.status(201).json(user);
       });
   });
 
 UsersRouter.route('/users/:userID')
-  .all((req, res, next) => {
+  .all(authorization, (req, res, next) => {
     const db = req.app.get('db');
     res.id = req.params.userID;
     UsersService.getById(db, res.id)
@@ -73,7 +74,7 @@ UsersRouter.route('/users/:userID')
       firstName: xss(res.user.first_name),
       lastName: xss(res.user.last_name), email: xss(res.user.email), 
       tools: xss(res.user.tools), startDate: xss(res.user.start_date),
-      github: xss(res.user.github), logged: res.user.logged
+      github: xss(res.user.github)
     };
     return res.json(user);
   })
@@ -81,16 +82,16 @@ UsersRouter.route('/users/:userID')
     const db = req.app.get('db');
     const {
       username, firstName, lastName, email, 
-      tools, startDate, github, logged
+      tools, startDate, github
     } = req.body;
     const user = {
       user_id: parseInt(res.id), username: xss(username), first_name: xss(firstName),
       last_name: xss(lastName), email: xss(email), 
       tools: xss(tools), start_date: xss(startDate),
-      github: xss(github), logged
+      github: xss(github)
     };
     Object.entries(user).forEach(([key, value]) => {
-      if (key === 'tools' || key === 'github' || (key === 'logged' && !value)) return;
+      if (key === 'tools' || key === 'github') return;
       if (!value) console.log(key) && next({message: 'Missing values.'});
     });
     UsersService.editUser(db, res.id, user)

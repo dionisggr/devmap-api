@@ -2,6 +2,7 @@ const express = require('express');
 const checkValues = require('./check-values')
 const IssuesService = require('./issues-service');
 const IssuesRouter = express.Router();
+const { authorization } = require('./validation');
 const xss = require('xss');
 
 IssuesRouter.route('/issues')
@@ -30,7 +31,7 @@ IssuesRouter.route('/issues')
         return res.json(issues);
       });
   })
-  .post((req, res, next) => {
+  .post(authorization, (req, res, next) => {
     const {
       name, description, project_id, tools, phase, 
       status, owner, start_date, collaboration, github
@@ -61,7 +62,7 @@ IssuesRouter.route('/issues')
   });
 
 IssuesRouter.route('/issues/:issueID')
-  .all((req, res, next) => {
+  .all(authorization, (req, res, next) => {
     res.db = req.app.get('db');
     res.id = parseInt(req.params.issueID);
     IssuesService.getById(res.db, res.id)

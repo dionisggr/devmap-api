@@ -2,6 +2,7 @@ const express = require('express');
 const checkValues = require('./check-values')
 const ProjectsService = require('./projects-service');
 const ProjectsRouter = express.Router();
+const { authorization } = require('./validation');
 const xss = require('xss');
 
 ProjectsRouter.route('/projects')
@@ -28,7 +29,7 @@ ProjectsRouter.route('/projects')
         return res.json(projects);
       });
   })
-  .post((req, res, next) => {
+  .post(authorization, (req, res, next) => {
     const {
       name, description, tools, phase, status, 
       owner, start_date, collaboration, github
@@ -58,7 +59,7 @@ ProjectsRouter.route('/projects')
   });
 
 ProjectsRouter.route('/projects/:projectID')
-  .all((req, res, next) => {
+  .all(authorization, (req, res, next) => {
     res.db = req.app.get('db');
     res.id = parseInt(req.params.projectID);
     ProjectsService.getById(res.db, res.id)

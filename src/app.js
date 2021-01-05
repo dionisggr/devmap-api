@@ -4,12 +4,12 @@ const morgan = require('morgan');
 const winston = require('winston');
 const helmet = require('helmet');
 const cors = require('cors');
-// const validation = require('./validation');
 const errorHandler = require('./error-handler');
 const ProjectsRouter = require('./projects-router');
 const IssuesRouter = require('./issues-router');
 const UsersRouter = require('./users-router');
 const LandingRouter = require('./landing-router');
+const AccessRouter = require('./access-router');
 
 const { NODE_ENV } = require('./config');
 
@@ -37,7 +37,7 @@ app.use(cors());
 app.use(morgan(morganOption));
 app.use(express.json());
 
-// app.use(validation);
+app.use(AccessRouter);
 app.use(LandingRouter);
 app.use(ProjectsRouter);
 app.use(IssuesRouter);

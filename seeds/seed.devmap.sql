@@ -1,11 +1,11 @@
 TRUNCATE project_collaborators, issues, projects, users RESTART IDENTITY CASCADE;
 
 INSERT INTO users
-  (username, first_name, last_name, email, tools, start_date, github, logged)
+  (username, password, first_name, last_name, email, tools, start_date, github)
 VALUES
-  ('dionisggr', 'Dionis', 'Gonzalez', 'dionisggr@gmail.com', 'RESTful APIs', '12/23/2020', 'github.com/dionisggr', FALSE),
-  ('gabrielrrm', 'Gabriel', 'Ramirez', 'gabrielrrm@gmail.com', 'JQuery', '12/23/2020', 'github.com/gabrielrrm', FALSE),
-  ('manuelprz', 'Manuel', 'Perez', 'manuelprz@gmail.com', 'React', '12/23/2020', 'github.com/manuelprz', FALSE);
+  ('dionisggr', '$2y$08$u1cerXhTinrwHWdAbKvrie6XCOOw0PZATkQWM0gHMTz0fgbmPtiOu', 'Dionis', 'Gonzalez', 'dionisggr@gmail.com', 'RESTful APIs', '12/23/2020', 'github.com/dionisggr'),
+  ('gabrielrrm', '$2y$08$u1cerXhTinrwHWdAbKvrie6XCOOw0PZATkQWM0gHMTz0fgbmPtiOu', 'Gabriel', 'Ramirez', 'gabrielrrm@gmail.com', 'JQuery', '12/23/2020', 'github.com/gabrielrrm'),
+  ('manuelprz', '$2y$08$u1cerXhTinrwHWdAbKvrie6XCOOw0PZATkQWM0gHMTz0fgbmPtiOu', 'Manuel', 'Perez', 'manuelprz@gmail.com', 'React', '12/23/2020', 'github.com/manuelprz');
 
 INSERT INTO projects
   (name, description, tools, phase, status, start_date, owner, collaboration, github)
