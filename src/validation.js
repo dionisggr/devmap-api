@@ -18,12 +18,12 @@ const validation = {
       UsersService.getByUsername(db, username)
         .then(user => {
           if (!user) {
-            return res.status(401).send({error: 'Invalid credentials.'});
+            return res.status(401).send({error: 'Invalid: username'});
           } else {
             bcrypt.compare(password, user.password)
               .then(match => {
                 if (!match) {
-                  return res.status(401).send({error: 'Invalid credentials.'})
+                  return res.status(401).send({error: 'Invalid: password'})
                 } else {
                   if (user.role === 'Admin') req.apiKey = API_KEY
                   next();

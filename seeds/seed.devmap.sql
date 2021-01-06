@@ -22,8 +22,15 @@ VALUES
   ('Issue 1', 'First description', '003', 'Route architecture', 'Design', 'In-Progress', '12/22/2020', '003', 'manuelprz', 'Yes', 'github.com/dionisggr/devmap');
 
 INSERT INTO project_collaborators
-  (project_id, user_id)
+  (project_id, user_id, username)
 VALUES
-  ('001', '002'),
-  ('002', '003'),
-  ('003', '001');
+  ('001', '002', 'gabrielrrm'),
+  ('001', '003', 'manuelprz'),
+  ('002', '001', 'dionisggr');
+
+INSERT INTO issue_collaborators
+  (issue_id, user_id, username)
+VALUES
+  ('001', '002', 'gabrielrrm'),
+  ('001', '003', 'manuelprz'),
+  ('002', '001', 'dionisggr');

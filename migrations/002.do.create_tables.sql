@@ -42,5 +42,12 @@ CREATE TABLE IF NOT EXISTS issues (
 
 CREATE TABLE IF NOT EXISTS project_collaborators (
   project_id INTEGER REFERENCES projects(project_id) ON DELETE CASCADE,
-  user_id INTEGER REFERENCES users(user_id) ON DELETE CASCADE
+  user_id INTEGER REFERENCES users(user_id) ON DELETE CASCADE,
+  username TEXT REFERENCES users(username) ON DELETE CASCADE
+);
+
+CREATE TABLE IF NOT EXISTS issue_collaborators (
+  issue_id INTEGER REFERENCES issues(issue_id) ON DELETE CASCADE,
+  user_id INTEGER REFERENCES users(user_id) ON DELETE CASCADE,
+  username TEXT REFERENCES users(username) ON DELETE CASCADE
 );
