@@ -5,7 +5,7 @@ const IssuesRouter = express.Router();
 const { authorization } = require('./validation');
 const xss = require('xss');
 
-IssuesRouter.route('/issues')
+IssuesRouter.route('/api/issues')
   .all((req, res, next) => {
     res.db = req.app.get('db');
     next();
@@ -42,7 +42,6 @@ IssuesRouter.route('/issues')
       status: xss(status), owner: owner, start_date, 
       collaboration: collaboration, github: xss(github)
     };
-    console.log(newIssue);
     Object.entries(newIssue).forEach(([key, value]) => {
       if (!value) next({message: 'Missing values.' + key});
     });
@@ -61,7 +60,7 @@ IssuesRouter.route('/issues')
       });
   });
 
-IssuesRouter.route('/issues/:issueID')
+IssuesRouter.route('/api/issues/:issueID')
   .all(authorization, (req, res, next) => {
     res.db = req.app.get('db');
     res.id = parseInt(req.params.issueID);

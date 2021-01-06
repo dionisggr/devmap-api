@@ -5,7 +5,7 @@ const ProjectsRouter = express.Router();
 const { authorization } = require('./validation');
 const xss = require('xss');
 
-ProjectsRouter.route('/projects')
+ProjectsRouter.route('/api/projects')
   .all((req, res, next) => {
     res.db = req.app.get('db');
     next();
@@ -58,7 +58,7 @@ ProjectsRouter.route('/projects')
       );
   });
 
-ProjectsRouter.route('/projects/:projectID')
+ProjectsRouter.route('/api/projects/:projectID')
   .all(authorization, (req, res, next) => {
     res.db = req.app.get('db');
     res.id = parseInt(req.params.projectID);

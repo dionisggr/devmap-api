@@ -4,9 +4,10 @@ CREATE TABLE IF NOT EXISTS users (
   password TEXT NOT NULL,
   first_name TEXT NOT NULL,
   last_name TEXT NOT NULL,
-  email TEXT NOT NULL,
+  email TEXT UNIQUE NOT NULL,
   tools TEXT NOT NULL,
   start_date TIMESTAMP DEFAULT now(),
+  role role DEFAULT 'User',
   github TEXT
 );
 
@@ -18,7 +19,8 @@ CREATE TABLE IF NOT EXISTS projects (
   phase phase NOT NULL,
   status status NOT NULL,
   start_date TIMESTAMP DEFAULT now(),
-  owner INTEGER REFERENCES users(user_id) ON DELETE CASCADE,
+  owner_id INTEGER REFERENCES users(user_id) ON DELETE CASCADE,
+  owner TEXT REFERENCES users(username) ON DELETE CASCADE,
   collaboration BOOLEAN DEFAULT TRUE,
   github TEXT
 );
@@ -32,7 +34,8 @@ CREATE TABLE IF NOT EXISTS issues (
   phase phase NOT NULL,
   status status NOT NULL,
   start_date TIMESTAMP DEFAULT now(),
-  owner INTEGER REFERENCES users(user_id) ON DELETE CASCADE,
+  owner_id INTEGER REFERENCES users(user_id) ON DELETE CASCADE,
+  owner TEXT REFERENCES users(username) ON DELETE CASCADE,
   collaboration BOOLEAN DEFAULT TRUE,
   github TEXT
 );

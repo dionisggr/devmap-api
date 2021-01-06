@@ -8,12 +8,14 @@ const { API_KEY } = require('./config');
 
 AccessRouter.route('/login')
   .post(authentication, (req, res) => {
-    const authToken = TokenService.create(
-      req.body.username, {userID: req.body.id}
-    );
-    return res.json({ authToken });
+    const { username, id } = req.body;
+    if (req.apiKey) {
+      return res.json({apiKey: req.apiKey})
+    } else {
+      const authToken = TokenService.create(username, {userID: id});
+      return res.json({ authToken });
+    }
   });
-
 
 AccessRouter.route('/refresh')
   .post(authorization, (req, res) => {
@@ -23,14 +25,12 @@ AccessRouter.route('/refresh')
     let subject = JSON.parse(base64url.decode(previous.split('.')[1])).sub;
     UsersService.getByUsername(db, subject)
       .then(user => {
-        console.log(user);
         const payload = {userID: user.user_id};
         try {
           TokenService.verify(previous)
           const authToken = TokenService.create(subject, payload);
           return res.json({ authToken });
         } catch(e) {
-          console.log(e);
           return res.status(401).send({error: 'Unauthorized access.'});
         }
       });

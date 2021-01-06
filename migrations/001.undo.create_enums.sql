@@ -1,1 +1,1 @@
-DROP TYPE IF EXISTS phase, status;
+DROP TYPE IF EXISTS role, phase, status;

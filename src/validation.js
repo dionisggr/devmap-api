@@ -2,7 +2,6 @@ const { API_KEY, JWT_SECRET } = require('./config');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
 const UsersService = require('./users-service');
-const TokenService = require('./token-service');
 
 const validation = {
   authentication(req, res, next) {
@@ -20,16 +19,22 @@ const validation = {
         .then(user => {
           if (!user) {
             return res.status(401).send({error: 'Invalid credentials.'});
+          } else {
+            bcrypt.compare(password, user.password)
+              .then(match => {
+                if (!match) {
+                  return res.status(401).send({error: 'Invalid credentials.'})
+                } else {
+                  if (user.role === 'Admin') req.apiKey = API_KEY
+                  next();
+                };
+              });
           };
-          bcrypt.compare(password, user.password)
-            .then(match => {
-              if (!match) {
-                return res.status(401).send({error: 'Invalid credentials.'})
-              };
-              next();
-            });
         });
-    } else next();
+    } else {
+      req.apiKey = API_KEY;
+      next()
+    };
   }
   ,
   authorization(req, res, next) {

@@ -1,7 +1,7 @@
 const express = require('express');
 const LandingRouter = express.Router();
 
-LandingRouter.route('/')
+LandingRouter.route('/api')
   .get((req, res) => {
     return res.sendFile('public/landing.html', {root: './'});
   });
