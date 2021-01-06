@@ -43,7 +43,7 @@ IssuesRouter.route('/api/issues')
       collaboration: collaboration, github: xss(github)
     };
     Object.entries(newIssue).forEach(([key, value]) => {
-      if (!value) next({message: 'Missing values.' + key})
+      if (!value) next({message: 'Missing values.' + key});
     });
     checkValues(res.db, newIssue)
       .then(() => {
