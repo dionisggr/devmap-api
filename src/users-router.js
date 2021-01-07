@@ -85,26 +85,28 @@ UsersRouter.route('/api/users/:userID')
     const db = req.app.get('db');
     const {
       username, firstName, lastName, email, 
-      tools, startDate, github, role
+      tools, startDate, github, id
     } = req.body;
     const user = {
-      user_id: parseInt(res.id), username: xss(username), first_name: xss(firstName),
+     username: xss(username), first_name: xss(firstName),
       last_name: xss(lastName), email: xss(email), 
       tools: xss(tools), start_date: xss(startDate),
-      github: xss(github), role: xss(role)
+      github: xss(github)
     };
     Object.entries(user).forEach(([key, value]) => {
       if (key === 'tools' || key === 'github') return;
       if (!value) next({message: 'Missing values.'});
     });
-    UsersService.editUser(db, res.id, user)
+    console.log('user', user);
+    UsersService.editUser(db, id, user)
       .then(user => {
+        delete user.password;
         return res.status(201).json(user);
       });
   })
   .delete((req, res) => {
     const db = req.app.get('db');
-    UsersService.deleteUser(db, res.id)
+    UsersService.deleteUser(db, id)
       .then(() => res.status(301).end());
   });
 
