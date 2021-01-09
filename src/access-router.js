@@ -29,7 +29,7 @@ AccessRouter.route('/refresh')
         .then(user => {
           const payload = {userID: user.user_id};
           try {
-            // TokenService.verify(previous)
+            TokenService.verify(token)
             const authToken = TokenService.create(subject, payload);
             return res.json({ authToken });
           } catch(e) {

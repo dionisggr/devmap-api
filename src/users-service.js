@@ -43,6 +43,11 @@ const UsersService = {
       .where('username', username)
       .first();
   }
+  ,
+  getUsernames(db) {
+    return db.from('users')
+      .select('username');
+  }
 };
 
 module.exports = UsersService;

@@ -1,6 +1,6 @@
 BEGIN;
 
-TRUNCATE project_collaborators, issues, projects, users RESTART IDENTITY CASCADE;
+TRUNCATE issues, projects, users RESTART IDENTITY CASCADE;
 
 INSERT INTO users
   (username, password, first_name, last_name, email, tools, start_date, role, github)
@@ -22,19 +22,5 @@ VALUES
   ('Issue 1', 'First description', '001', 'Bootstrap', 'Design', 'Delayed', '12/22/2020', '001', 'dionisggr', 'Yes', 'github.com/dionisggr/devmap'),
   ('Issue 2', 'Second description', '002', 'Event delegation', 'Development', 'In-Progress', '12/22/2020', '002', 'gabrielrrm', 'Yes', 'github.com/manuelprz/devmap'),
   ('Issue 1', 'First description', '003', 'Route architecture', 'Design', 'In-Progress', '12/22/2020', '003', 'manuelprz', 'Yes', 'github.com/dionisggr/devmap');
-
-INSERT INTO project_collaborators
-  (project_id, user_id, username)
-VALUES
-  ('001', '002', 'gabrielrrm'),
-  ('001', '003', 'manuelprz'),
-  ('002', '001', 'dionisggr');
-
-INSERT INTO issue_collaborators
-  (issue_id, user_id, username)
-VALUES
-  ('001', '002', 'gabrielrrm'),
-  ('001', '003', 'manuelprz'),
-  ('002', '001', 'dionisggr');
 
 COMMIT;

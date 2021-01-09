@@ -18,16 +18,16 @@ describe('The App', () => {
   app.set('db', db);
   
   before('cleaning tables', () => {
-    return db.raw('TRUNCATE users, projects RESTART IDENTITY CASCADE');
+    return db.raw('TRUNCATE issues, projects, users RESTART IDENTITY CASCADE');
   });
   
   after('disconnect from db', () => {
     return db.destroy();
   });
   context('renders Landing Page', () => {
-    it('GET / responds with 200 status and an html page.', () => {
+    it('GET /api responds with 200 status and an html page.', () => {
       return supertest(app)
-        .get('/')
+        .get('/api')
         .expect(200)
         .expect('Content-Type', /html/);
     });
@@ -39,63 +39,67 @@ describe('The App', () => {
       username: random,
       firstName: 'Dionis',
       lastName: 'Gonzalez',
+      password: 'password',
       email: `${random}@gmail.com`,
       tools: "RESTful APIs",
       startDate: "2020-12-29T22:33:12.567Z",
       github: `github.com/${random}`,
-      logged: false
     };
     before('inserting users to table', () => {
       users = createUsers();
       return db('users')
         .insert(users)
     });
-    it('GET /users responds with 200 status and an array of objects.', () => {
+    it('GET /api/users responds with 200 status and an array of objects.', () => {
       return supertest(app)
-        .get('/users')
+        .get('/api/users')
+        .set({'Authorization': 'Bearer my-secret-key'})
         .expect(200)
         .expect(res => expect(res.body).to.be.an('array'));
     });
-    it('POST /users responds with 201 status and an object.', () => {
+    it('POST /api/users responds with 201 status and an object.', () => {
       return supertest(app)
-        .post('/users')
+        .post('/api/users')
+        .set({'Authorization': 'Bearer my-secret-key'})
         .send(user)
-        .expect(201)
-        .then(res => {
-          expect(res.body).to.be.an('object');
-          user.id = res.body.id;
-          res.body.startDate = "2020-12-29T22:33:12.567Z";
-          expect(res.body).to.eql(user);
-          // res.body.startDate = 'Tue Dec 29 2020 22:33:12 GMT-0700 (Mountain Standard Time)'
-        });
+        .expect(307) // redirect to Login
     });
-    it('PATCH /users/:userID responds with 201 status and an object.', () => {
-      const random = uuid();
-      user.username = random;
+    it('PATCH /api/users/:userID responds with 201 status and an object.', () => {
+        const values = {
+          "username": "dionisggr15",
+          "firstName": "Dionis",
+          "lastName": "Gonzalez",
+          "email": "dionisggr15@gmail.com",
+          "tools": "RESTful APIs",
+          "startDate": "12/20/2020",
+          "github": "github.com/dionisggr"
+        }
       return supertest(app)
-        .patch(`/users/${user.id}`)
-        .send(user)
+        .patch('/api/users/1')
+        .set({'Authorization': 'Bearer my-secret-key'})
+        .send(values)
         .expect(201)
         .then(res => {
           expect(res.body).to.be.an('object');
         })
     });
-    it('DELETE /users/:userID responds with 301 status.', () => {
+    it('DELETE /api/users/:userID responds with 301 status.', () => {
       return supertest(app)
-        .delete(`/users/${user.id}`)
+        .delete(`/api/users/1`)
+        .set({'Authorization': 'Bearer my-secret-key'})
         .expect(301);
     });
   });
   context('Project Data', () => {
-    let random = uuid();
     let projects;
     let project = {
-      name: "Project 1",
+      name: "Project 7",
       description: "First description",
       tools: "HTML/CSS",
       phase: "Design",
       status: "Delayed",
-      owner: 1,
+      owner_id: 2,
+      owner: "gabrielrrm",
       start_date: "2020-12-30T20:02:30.908Z",
       collaboration: true,
       github: "github.com/dionisggr/devmap"
@@ -104,39 +108,45 @@ describe('The App', () => {
       projects = createProjects();
       return db('projects')
         .insert(projects)
+        .catch(error => console.log({ error }))
     });
-    it('GET /projects responds with 200 status and an array of objects.', () => {
+    it('GET /api/projects responds with 200 status and an array of objects.', () => {
       return supertest(app)
-        .get('/projects')
+        .get('/api/projects')
+        .set({'Authorization': 'Bearer my-secret-key'})
         .expect(200)
         .expect(res => expect(res.body).to.be.an('array'));
     });
-    it('POST /projects responds with 201 status and an object.', () => {
+    it('POST /api/projects responds with 201 status and an object.', () => {
       return supertest(app)
-        .post('/projects')
+        .post('/api/projects')
+        .set({'Authorization': 'Bearer my-secret-key'})
         .send(project)
         .expect(201)
         .then(res => {
           expect(res.body).to.be.an('object');
           project.project_id = res.body.project_id;
           project.owner = res.body.owner.toString();
+          res.body.owner_id = project.owner_id;
           expect(res.body).to.eql(project);
         });
     });
-    it('PATCH /projects/:projectID responds with 201 status and an object.', () => {
+    it('PATCH /api/projects/:projectID responds with 201 status and an object.', () => {
       const random = uuid();
       project.name = random;
       return supertest(app)
-        .patch(`/projects/${project.project_id}`)
+        .patch(`/api/projects/${project.project_id}`)
+        .set({'Authorization': 'Bearer my-secret-key'})
         .send(project)
         .expect(201)
         .then(res => {
           expect(res.body).to.be.an('object');
         })
     });
-    it('DELETE /projects/:projectID responds with 301 status.', () => {
+    it('DELETE /api/projects/:projectID responds with 301 status.', () => {
       return supertest(app)
-        .delete(`/projects/${project.project_id}`)
+        .delete(`/api/projects/${project.project_id}`)
+        .set({'Authorization': 'Bearer my-secret-key'})
         .expect(301);
     });
   });
@@ -149,7 +159,8 @@ describe('The App', () => {
       tools: "HTML/CSS",
       phase: "Design",
       status: "Delayed",
-      owner: 1,
+      owner_id: 1,
+      owner: "gabrielrrm",
       start_date: "2020-12-30T20:02:30.908Z",
       project_id: 1,
       collaboration: true,
@@ -160,15 +171,17 @@ describe('The App', () => {
       return db('issues')
         .insert(issues)
     });
-    it('GET /issues responds with 200 status and an array of objects.', () => {
+    it('GET /api/issues responds with 200 status and an array of objects.', () => {
       return supertest(app)
-        .get('/issues')
+        .get('/api/issues')
+        .set({'Authorization': 'Bearer my-secret-key'})
         .expect(200)
         .expect(res => expect(res.body).to.be.an('array'));
     });
-    it('POST /issues responds with 201 status and an object.', () => {
+    it('POST /api/issues responds with 201 status and an object.', () => {
       return supertest(app)
-        .post('/issues')
+        .post('/api/issues')
+        .set({'Authorization': 'Bearer my-secret-key'})
         .send(issue)
         .expect(201)
         .then(res => {
@@ -176,23 +189,26 @@ describe('The App', () => {
           issue.issue_id = res.body.issue_id;
           issue.owner = res.body.owner.toString();
           res.body.start_date = "2020-12-30T20:02:30.908Z";
+          res.body.owner_id = issue.owner_id;
           expect(res.body).to.eql(issue);
         });
     });
-    it('PATCH /issues/:issueID responds with 201 status and an object.', () => {
+    it('PATCH /api/issues/:issueID responds with 201 status and an object.', () => {
       const random = uuid();
       issue.name = random;
       return supertest(app)
-        .patch(`/issues/${issue.issue_id}`)
+        .patch(`/api/issues/${issue.issue_id}`)
+        .set({'Authorization': 'Bearer my-secret-key'})
         .send(issue)
         .expect(201)
         .then(res => {
           expect(res.body).to.be.an('object');
         })
     });
-    it('DELETE /issues/:issueID responds with 301 status.', () => {
+    it('DELETE /api/issues/:issueID responds with 301 status.', () => {
       return supertest(app)
-        .delete(`/issues/${issue.issue_id}`)
+        .delete(`/api/issues/${issue.issue_id}`)
+        .set({'Authorization': 'Bearer my-secret-key'})
         .expect(301);
     });
   });

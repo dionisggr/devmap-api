@@ -56,8 +56,10 @@ IssuesRouter.route('/api/issues')
             collaboration: issue.collaboration, github: xss(issue.github)
           };
           return res.status(201).json(issue);
-        });
-      });
+        })
+        .catch(error => console.log({ error }));
+      })
+      .catch(error => console.log({ error }));
   });
 
 IssuesRouter.route('/api/issues/:issueID')

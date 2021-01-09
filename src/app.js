@@ -10,7 +10,6 @@ const IssuesRouter = require('./issues-router');
 const UsersRouter = require('./users-router');
 const LandingRouter = require('./landing-router');
 const AccessRouter = require('./access-router');
-const CollaboratorsRouter = require('./collaborators-router');
 
 const { NODE_ENV } = require('./config');
 
@@ -43,7 +42,6 @@ app.use(LandingRouter);
 app.use(ProjectsRouter);
 app.use(IssuesRouter);
 app.use(UsersRouter);
-app.use(CollaboratorsRouter);
 app.use(errorHandler);
 
 module.exports = app;
