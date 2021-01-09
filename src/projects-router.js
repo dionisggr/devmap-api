@@ -4,6 +4,7 @@ const ProjectsService = require('./projects-service');
 const ProjectsRouter = express.Router();
 const { authorization } = require('./validation');
 const xss = require('xss');
+const UsersService = require('./users-service');
 
 ProjectsRouter.route('/api/projects')
   .all((req, res, next) => {
@@ -44,18 +45,23 @@ ProjectsRouter.route('/api/projects')
       if (!value) next({message: 'Missing values.'});
     });
     checkValues(res.db, newProject)
-      .then(() => 
-        ProjectsService.addProject(res.db, newProject)
-          .then(project => {
-            project = {
-              project_id: xss(project.project_id), name: xss(name), description: xss(description), 
-              tools: xss(tools), phase: xss(phase), status: xss(status),
-              owner: xss(owner), start_date: xss(start_date),
-              collaboration: collaboration, github: xss(github)
-            };
-            return res.status(201).json(project);
-          })
-      );
+      .then(() => {
+        UsersService.getByUsername(res.db, newProject.owner)
+          .then(user => {
+            newProject.owner_id = user.user_id;
+            ProjectsService.addProject(res.db, newProject)
+              .then(project => {
+                project = {
+                  project_id: xss(project.project_id), name: xss(name), description: xss(description), 
+                  tools: xss(tools), phase: xss(phase), status: xss(status),
+                  owner: xss(owner), start_date: xss(start_date),
+                  collaboration: collaboration, github: xss(github)
+                };
+                return res.status(201).json(project);
+              })
+              .catch(error => res.status(400).send({ error }));
+          });
+      });
   });
 
 ProjectsRouter.route('/api/projects/:projectID')
@@ -87,17 +93,17 @@ ProjectsRouter.route('/api/projects/:projectID')
   .patch((req, res) => {
     const {
       name, description, tools, phase, status, 
-      owner, start_date, collaboration, github
+      start_date, collaboration, github
     } = req.body;
     const values = {
       name: xss(name), description: xss(description), 
       tools: xss(tools), phase: xss(phase), status: xss(status),
-      owner: xss(owner), start_date: xss(start_date),
+      start_date: xss(start_date),
       collaboration: collaboration, github: xss(github)
     };
     checkValues(res.db, values);
     Object.entries(values).forEach(([key, value]) => {
-      if (!value) delete values[key];
+      if (!value && key !== 'collaboration') delete values[key];
     });
     ProjectsService.editProject(res.db, res.id, values)
       .then(project => res.status(201).json(project));

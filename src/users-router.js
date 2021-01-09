@@ -38,7 +38,7 @@ UsersRouter.route('/api/users')
     };
     Object.entries(newUser).forEach(([key, value]) => {
       if (key === 'tools' || key === 'github' || key === 'start_date') return;
-      if (!value) next({message: 'Missing values.'});
+      if (!value) console.log(key) && next({message: 'Missing values.'});
     });
     UsersService.addUser(db, newUser)
       .then(user => {
@@ -105,9 +105,26 @@ UsersRouter.route('/api/users/:userID')
       });
   })
   .delete((req, res) => {
+    const { userID } = req.params;
     const db = req.app.get('db');
-    UsersService.deleteUser(db, id)
+    UsersService.deleteUser(db, userID)
       .then(() => res.status(301).end());
+  });
+
+UsersRouter.route('/api/usernames')
+  .get((req, res) => {
+    
+  });
+
+UsersRouter.route('/api/:username')
+  .get((req, res) => {
+    const username = req.params.username;
+    UsersService.getByUsername(username)
+      .then(user => {
+        if (!res) res.status(400).send({ error: 'Invalid data.'})
+        return res.json(user);
+      })
+      .catch(error => console.log({ error }));
   });
 
 module.exports = UsersRouter;

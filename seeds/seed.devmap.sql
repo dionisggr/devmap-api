@@ -1,3 +1,5 @@
+BEGIN;
+
 TRUNCATE project_collaborators, issues, projects, users RESTART IDENTITY CASCADE;
 
 INSERT INTO users
@@ -34,3 +36,5 @@ VALUES
   ('001', '002', 'gabrielrrm'),
   ('001', '003', 'manuelprz'),
   ('002', '001', 'dionisggr');
+
+COMMIT;

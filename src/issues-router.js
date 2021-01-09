@@ -67,7 +67,6 @@ IssuesRouter.route('/api/issues/:issueID')
     IssuesService.getById(res.db, res.id)
       .then(issue => {
         if (!issue) next({message: 'Invalid data.'});
-        console.log(issue);
         issue = {
           id: res.id, name: xss(issue.name), description: xss(issue.description), 
           project_id: xss(issue.project_id), tools: xss(issue.tools), phase: xss(issue.phase),
