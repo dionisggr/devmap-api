@@ -4,12 +4,12 @@ const morgan = require('morgan');
 const winston = require('winston');
 const helmet = require('helmet');
 const cors = require('cors');
-const errorHandler = require('./error-handler');
-const ProjectsRouter = require('./projects-router');
-const IssuesRouter = require('./issues-router');
-const UsersRouter = require('./users-router');
-const LandingRouter = require('./landing-router');
-const AccessRouter = require('./access-router');
+const errorHandler = require('./middleware/error-handler');
+const ProjectsRouter = require('./middleware/routers/projects-router');
+const IssuesRouter = require('./middleware/routers/issues-router');
+const UsersRouter = require('./middleware/routers/users-router');
+const LandingRouter = require('./middleware/routers/landing-router');
+const AccessRouter = require('./middleware/routers/access-router');
 
 const { NODE_ENV } = require('./config');
 

@@ -1,10 +1,11 @@
 const express = require('express');
-const { authentication, authorization } = require('./validation');
-const AccessRouter = express.Router();
-const TokenService = require('./token-service');
-const UsersService = require('./users-service');
 const jwt_decode = require('jwt-decode');
-const { API_KEY } = require('./config');
+const { authentication, authorization } = require('../../helpers/validation');
+const { API_KEY } = require('../../config');
+const TokenService = require('../../services/token-service');
+const UsersService = require('../../services/users-service');
+
+const AccessRouter = express.Router();
 
 AccessRouter.route('/login')
   .post(authentication, (req, res) => {

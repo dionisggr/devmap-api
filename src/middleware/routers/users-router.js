@@ -1,9 +1,10 @@
 const express = require('express');
-const UsersService = require('./users-service');
-const UsersRouter = express.Router();
 const bcrypt = require('bcryptjs');
 const xss = require('xss');
-const { authorization } = require('./validation');
+const { authorization } = require('../../helpers/validation');
+const UsersService = require('../../services/users-service');
+
+const UsersRouter = express.Router();
 
 UsersRouter.route('/api/users')
   .get(authorization, (req, res) => {

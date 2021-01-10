@@ -1,5 +1,5 @@
-const UsersService = require('./users-service');
-const ProjectsService = require('./projects-service');
+const UsersService = require('../services/users-service');
+const ProjectsService = require('../services/projects-service');
 
 function checkValues(db, values) {
   return ProjectsService.getProjects(db)

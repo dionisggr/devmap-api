@@ -1,9 +1,10 @@
 const express = require('express');
-const checkValues = require('./check-values')
-const IssuesService = require('./issues-service');
-const IssuesRouter = express.Router();
-const { authorization } = require('./validation');
+const checkValues = require('../../helpers/check-values')
+const IssuesService = require('../../services/issues-service');
+const { authorization } = require('../../helpers/validation');
 const xss = require('xss');
+
+const IssuesRouter = express.Router();
 
 IssuesRouter.route('/api/issues')
   .all((req, res, next) => {

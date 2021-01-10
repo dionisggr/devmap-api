@@ -1,7 +1,7 @@
-const { API_KEY, JWT_SECRET } = require('./config');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
-const UsersService = require('./users-service');
+const { API_KEY, JWT_SECRET } = require('../config');
+const UsersService = require('../services/users-service');
 
 const validation = {
   authentication(req, res, next) {
