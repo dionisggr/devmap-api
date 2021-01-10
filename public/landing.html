@@ -14,29 +14,49 @@
     <main>
       <div class="container">
         <h4>Congrats!</h4>
-        <p>
-          You're successfully running the DevMap Server!
-        </p>
-
+        <p>You're successfully running the DevMap Server!</p>
+        <br />
         <div id="resources">
           <div>
             <h4>Resources</h4>
             <ul>
-              <li><a href="./projects">/projects</a> <sup>x3</sup></li>
-              <li><a href="./issues">/issues</a> <sup>x3</sup></li>
+              <li><a href="./api/users">/users</a><sup>x3</sup> (Admin)</li>
+              <li><a href="./api/projects">/projects</a> <sup>x3</sup></li>
+              <li><a href="./api/issues">/issues</a> <sup>x3</sup></li>
             </ul>
           </div>
         </div>
-
-        <p>
-          To access and modify resources, you can use any HTTP method
-          <br>
-          <code>GET</code>
-          <code>POST</code>
-          <code>PATCH</code>
-          <code>DELETE</code>
-        </p>
-
+        <div id='paths'>
+          <p>
+            To access and modify resources, you can use any HTTP method
+            <br>
+            <code>GET</code>
+            <code>POST</code>
+            <code>PATCH</code>
+            <code>DELETE</code>
+          </p>
+        </div>
+        <br />
+        <div>
+          <h4><b>General Instructions:</b></h4>
+          <p>For browsing <code>/users</code> endpoint, you will need to login for Admin privileges.
+          <p>See above for instructions.</p>
+          <p>You may perform <code>/ GET</code> requests to <code>/apcode projects</code> and <code>/api issues</code> without any Admin privileges.
+          <p>For other HTTP methods, you will need to login first.</p>
+          <p>See above for instructions.</p>
+        </div>
+        <br />
+        <div id='login'>
+          <h4>Login Instructions:</h4>
+          <a href='https://devmap.vercel.app/login'>Press here to Login. </a>
+          <p>You may use the following credentials to login as 'Admin' and make HTTP requests:</p>
+          <ul>
+            <li>Username: <i>dionisggr</i></li>
+            <li>Password: <i>password</i></li>
+          </ul>
+          <a href='https://devmap.vercel.app/logout'>Press here to Log Out.</a>
+        </div>
+        <br />
         <h4>Documentation</h4>
         <p>View
           <a href="https://github.com/dionisggr/devmap-api/readme">README</a>
@@ -45,6 +65,6 @@
     </main>
 
     <footer></footer>
-    <script type="text/javascript" src="main.js"></script>
+    <script type="text/javascript" src="landing.js"></script>
   </body>
 </html>
