@@ -24,8 +24,8 @@ Complete the following steps to clone a local copy of the server:
 6. If you changed the project name, edit the contents of the `package.json` to use NEW-PROJECT-NAME
 
 ### Scripts
-Start a database server with `pg_ctl start`
-Run 'postgrator' with `npm run migrate` to migrate the tables to highest available version
-Seed the tables with `psql -U admin -d devmap -f ./seeds/seed.devmap.sql`
-Start the application `npm start`. Tests will run automatically
-Alternatively, you may start the application with nodemon `npm run dev`. Tests will not run unless manually set to
+1. Start a database server with `pg_ctl start`
+2. Run 'postgrator' with `npm run migrate` to migrate the tables to highest available version
+3. Seed the tables with `psql -U admin -d devmap -f ./seeds/seed.devmap.sql`
+4. Start the application `npm start`. Tests will run automatically
+5. Alternatively, you may start the application with nodemon `npm run dev`. Tests will not run unless manually set to
