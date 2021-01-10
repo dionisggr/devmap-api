@@ -1,26 +1,36 @@
-# Express Boilerplate!
+# DevMap API
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;A simple API for the DevMap App for all HTTP-related requests. The client-side may be found at: https://devmap.vercel.app/.
 
-This is a boilerplate project used for starting new projects!
+### Languages/Tools
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Javascript, Node.js, Express.js, Knex.js, PostgreSQL, Mocha, Chai, Supertest, Nodemon, Postgrator, JSON Web Tokens, Bcrypt, HTML5, CI scripts
+Loggers: Morgan, Winston
+Securities: XSS, CORS, Helmet
 
-## Set up
+### Deployment Platform:
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Heroku
 
-Complete the following steps to start a new project (NEW-PROJECT-NAME):
+---
+### API Request Instructions:
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;https://afternoon-dawn-05389.herokuapp.com/
 
-1. Clone this repository to your local machine `git clone BOILERPLATE-URL NEW-PROJECTS-NAME`
+### Local Set-Up
+Complete the following steps to clone a local copy of the server:
+
+1. Clone this repository to your local machine `git clone REPO-URL NEW-PROJECT-NAME`
 2. `cd` into the cloned repository
 3. Make a fresh start of the git history for this project with `rm -rf .git && git init`
 4. Install the node dependencies `npm install`
-5. Move the example Environment file to `.env` that will be ignored by git and read by the express server `mv example.env .env`
-6. Edit the contents of the `package.json` to use NEW-PROJECT-NAME instead of `"name": "express-boilerplate",`
+5. Move the `example.env` Environment file to `.env`, which will be ignored by git but read by the express server: `mv example.env .env`
+6. If you changed the project name, edit the contents of the `package.json` to use NEW-PROJECT-NAME
 
-## Scripts
+### Scripts
+1. Start a database server with `pg_ctl start`
+2. Create an user with Superuser permission, with `createuser -sPE admin` (if different name, make sure to update it in `.env`, `config.js`, `postgrator-config.js` files)
+3. Create a database with any name, ideally `devmap` (if different name, make sure to update it in `.env`, `config.js`, `postgrator-config.js` files)
+4. Run 'postgrator' with `npm run migrate` to migrate the tables to highest available version
+5. Seed the tables with `psql -U admin -d devmap -f ./seeds/seed.devmap.sql` with preset data.
+6. Start the application `npm start`; tests will run automatically
+7. Alternatively, you may start the application with nodemon `npm run dev`; tests will not run unless manually set to
 
-Start the application `npm start`
-
-Start nodemon for the application `npm run dev`
-
-Run the tests `npm test`
-
-## Deploying
-
-When your new project is ready for deployment, add a new Heroku application with `heroku create`. This will make a new git remote called "heroku" and you can then `npm run deploy` which will push to this remote's main branch.
+---
+## Landing Page
