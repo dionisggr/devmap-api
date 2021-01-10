@@ -1,8 +1,10 @@
 # DevMap API
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;A simple API for the DevMap App for all HTTP-related requests. The client-side may be found at: https://devmap.vercel.app/.
 
-### API Landing Page: https://afternoon-dawn-05389.herokuapp.com/
-### Client-Side: https://devmap.vercel.app/
+### API Landing Page:
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;https://afternoon-dawn-05389.herokuapp.com/
+### Client-Side
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;https://devmap.vercel.app/
 
 
 ### Languages/Tools
@@ -38,4 +40,5 @@ Complete the following steps to clone a local copy of the server:
 
 ---
 ## Landing Page
+
 ![Landing Page](https://github.com/dionisggr/devmap-api/blob/main/public/img/landing.png)
