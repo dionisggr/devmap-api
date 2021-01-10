@@ -1,6 +1,10 @@
 # DevMap API
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;A simple API for the DevMap App for all HTTP-related requests. The client-side may be found at: https://devmap.vercel.app/.
 
+### API Landing Page: https://afternoon-dawn-05389.herokuapp.com/
+### Client-Side: https://devmap.vercel.app/
+
+
 ### Languages/Tools
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Javascript, Node.js, Express.js, Knex.js, PostgreSQL, Mocha, Chai, Supertest, Nodemon, Postgrator, JSON Web Tokens, Bcrypt, HTML5, CI scripts
 Loggers: Morgan, Winston
@@ -34,3 +38,4 @@ Complete the following steps to clone a local copy of the server:
 
 ---
 ## Landing Page
+![Landing Page](/public/img/landing.png)
