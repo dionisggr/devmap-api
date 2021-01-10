@@ -25,10 +25,12 @@ Complete the following steps to clone a local copy of the server:
 
 ### Scripts
 1. Start a database server with `pg_ctl start`
-2. Run 'postgrator' with `npm run migrate` to migrate the tables to highest available version
-3. Seed the tables with `psql -U admin -d devmap -f ./seeds/seed.devmap.sql`
-4. Start the application `npm start`. Tests will run automatically
-5. Alternatively, you may start the application with nodemon `npm run dev`. Tests will not run unless manually set to
+2. Create an user with Superuser permission, with `createuser -sPE admin` (if different name, make sure to update it in `.env`, `config.js`, `postgrator-config.js` files)
+3. Create a database with any name, ideally `devmap` (if different name, make sure to update it in `.env`, `config.js`, `postgrator-config.js` files)
+4. Run 'postgrator' with `npm run migrate` to migrate the tables to highest available version
+5. Seed the tables with `psql -U admin -d devmap -f ./seeds/seed.devmap.sql` with preset data.
+6. Start the application `npm start`; tests will run automatically
+7. Alternatively, you may start the application with nodemon `npm run dev`; tests will not run unless manually set to
 
 ---
 ## Landing Page
