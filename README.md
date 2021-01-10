@@ -29,3 +29,6 @@ Complete the following steps to clone a local copy of the server:
 3. Seed the tables with `psql -U admin -d devmap -f ./seeds/seed.devmap.sql`
 4. Start the application `npm start`. Tests will run automatically
 5. Alternatively, you may start the application with nodemon `npm run dev`. Tests will not run unless manually set to
+
+---
+## Landing Page
