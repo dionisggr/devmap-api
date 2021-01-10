@@ -38,4 +38,4 @@ Complete the following steps to clone a local copy of the server:
 
 ---
 ## Landing Page
-![Landing Page](../public/img/landing.png)
+![Landing Page](../public/img/landing.png?raw=true)
