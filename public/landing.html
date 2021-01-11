@@ -31,19 +31,50 @@
             To access and modify resources, you can use any HTTP method
             <br>
             <code>GET</code>
-            <code>POST</code>
-            <code>PATCH</code>
-            <code>DELETE</code>
+            <code>POST</code> <i>(Admin)</i>
+            <code>PATCH</code> <i>(Admin)</i>
+            <code>DELETE</code> <i>(Admin)</i>
           </p>
         </div>
         <br />
         <div>
-          <h4><b>General Instructions:</b></h4>
-          <p>For browsing <code>/users</code> endpoint, you will need to be Authorized for access.</p>
-          <p>Use <code>Bearer my-secret-key'</code> as your Authorization header for this purpose for most requests.</p>
-          <p>You may perform <code>/ GET</code> requests to <code>/api projects</code> and <code>/api issues</code> without any Admin privileges.
+          <h4><b>Access Instructions:</b></h4>
+          <p>For <i>Admin</i> privileges, please follow one of the following instructions:</p>
+          <ul>
+            <li>Use <code>'Bearer my-secret-key'</code> as Authorization header for API requests.</li>
+            <li>Use the following credentials as a JSON object in the Body of the API request.
+              <ul>
+                <li>Username: `dionisggr`</li>
+                <li>Password: `password`</li>
+              </ul>
+            <li>
+            <li>Use the same credentials above to log in the client-side, and refresh (or come back to) this Landing Page.
+              <ul>
+                <li>You may <a href='https://devmap.vercel.app/login' target='_blank'>Log In here.</a></li>
+              </ul>
+            </li>
+          </ul>
+          <br />
+
+          <h4>General Instructions:</h4>
+          <p>Open Endpoints</p>
+          <p>Open endpoints require no Authentication.</p>
+          <p>Login : POST /api/login/</p>
+          <p>Endpoints that require Authentication</p>
+          <p>Closed endpoints require a valid Token to be included in the header of the request. A Token can be acquired from the Login view above.</p>
+          <p>Current User related</p>
+          <p>Each endpoint manipulates or displays information related to the User whose Token is provided with the request:</p>
+          <p>Show info : GET /api/user/</p>
+          <p>Update info : PUT /api/user/</p>
+          <p>Account related</p>
+          <p>Endpoints for viewing and manipulating the Accounts that the Authenticated User has permissions to access.</p>
+          <p>Show Accessible Accounts : GET /api/accounts/</p>
+          <p>Create Account : POST /api/accounts/</p>
+          <p>Show An Account : GET /api/accounts/:pk/</p>
+          <p>Update An Account : PUT /api/accounts/:pk/</p>
+          <p>Delete An Account : DELETE /api/accounts/:pk/</p>
+
         </div>
-        <br />
         <br />
         <h4>Documentation</h4>
         <p>View
