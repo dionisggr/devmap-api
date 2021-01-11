@@ -30,7 +30,7 @@ Securities: XSS, CORS, Helmet
 **Content example** \
 &lt;HTML file&gt;
 
-<br />
+- - -
 
 ### Get Projects
 **URL:** `/projects` \
