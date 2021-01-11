@@ -37,12 +37,12 @@
           </p>
         </div>
         <br />
-        <div id='instructions'></div>>
+        <div id='instructions'></div>
 
 
 
 
-        
+
         <h2>API Request Instructions:</h2>
         <h3>Open Endpoints</h3>
         <p>Open endpoints that require no Authentication or Authorization.</p>
@@ -67,22 +67,22 @@
           </li>
         </ul>
         <hr>
+        
         <h3>Endpoints that require Authorization</h3>
         <p>Closed endpoints that require a valid JSON Web Token to be inlcuded in the header &#39;Authorization&#39; of the request. For &#39;Admin&#39; privileges:</p>
-        <pre><code>//
-          <span>Add</span>
-          <span> to request header</span>
-          headers: {
-            <span>'Authorization'</span>:
-            <span>'Bearer my-secret-key'</span>
-          }
+
+        <pre><code>
+          // Add to request header
+          headers: {'Authorization': 'Bearer my-secret-key'}
         </code></pre>
+
         <p>If sending content through request body (<code>POST</code>, <code>PATCH</code>), don&#39;t forget to add the following in the headers:</p>
-        <pre><code>//
-          <span>Add</span>
-          <span> to request header</span>
-          headers<span>" {'Content-Type': 'application/json'}</span>
+
+        <pre><code>
+          // Add to request header
+          headers: {'Content-Type': 'application/json'}
         </code></pre>
+
         <h4>Project related</h4>
         <p>Each endpoint manipulates information related to projects.</p>
         <ul>
@@ -90,6 +90,7 @@
           <li><a href="https://github.com/dionisggr/devmap-api/wiki/Projects">Update a Project</a>: <code>PATCH /api/projects/:projectID</code></li>
           <li><a href="https://github.com/dionisggr/devmap-api/wiki/Projects">Delete a Project</a>: <code>DELETE /api/projects/:projectID</code></li>
         </ul>
+
         <h4>Issue related</h4>
         <p>Each endpoint manipulates information related to issues.</p>
         <ul>
@@ -97,6 +98,7 @@
           <li><a href="https://github.com/dionisggr/devmap-api/wiki/Issues">Update an Issue</a>: <code>PATCH /api/projects/:issueID</code></li>
           <li><a href="https://github.com/dionisggr/devmap-api/wiki/Issues">Delete an Issue</a>: <code>DELETE /api/projects/:issueID</code></li>
         </ul>
+
         <h4>User related</h4>
         <p>Each endpoint manipulates information related to users.</p>
         <ul>
@@ -116,6 +118,8 @@
         <p>View
           <a href="https://github.com/dionisggr/devmap-api/blob/main/README.md">README</a>
         </p>
+        <br />
+        <br />
       </div>
     </main>
     <footer></footer>
