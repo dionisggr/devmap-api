@@ -30,7 +30,7 @@ Open endpoints that require no Authentication or Authorization.
 ### Endpoints that require Authentication
 Closed endpoints that require a valid username and password to be included in the header body of the request.
 - [Login](https://github.com/dionisggr/devmap-api/wiki/Access-Permission): `POST /login`
-  - 'Admin' credentials *(or you may [Register](https://devmap.vercel.app/signup))*
+  - 'Admin' credentials *(or you may [Register](https://devmap.vercel.app/signup)):*
     - Username: `dionisggr`
     - Password: `password`
 
