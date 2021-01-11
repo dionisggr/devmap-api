@@ -1,21 +1,22 @@
 # DevMap API
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;A simple API for the DevMap App for all HTTP-related requests. The client-side may be found at: https://devmap.vercel.app/.
 
-*(CSS still a Work-In-Progress)*
+*(CSS still a work-in-progress)*
 
 ## API Landing Page:
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;https://afternoon-dawn-05389.herokuapp.com/
 ### Client-Side
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;https://devmap.vercel.app/
 
-
-### Languages/Tools
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Javascript, Node.js, Express.js, Knex.js, PostgreSQL, Mocha, Chai, Supertest, Nodemon, Postgrator, JSON Web Tokens, Bcrypt, HTML5, CI scripts \
-Loggers: Morgan, Winston \
-Securities: XSS, CORS, Helmet
-
 ### Deployment Platform:
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Heroku
+
+### Languages/Tools
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Javascript, Node.js, Express.js, Knex.js, PostgreSQL, Mocha, Chai, Supertest, Nodemon, Postgrator, JSON Web Tokens, Bcrypt, HTML5, CI scripts
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**Loggers:** Morgan, Winston \
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**Securities:** XSS, CORS, Helmet
+
 
 ---
 ## <div align='center'>API Request Instructions:</div>
@@ -65,7 +66,7 @@ Securities: XSS, CORS, Helmet
 **Method:** `POST` \
 **Auth required:** Yes
 - `Bearer my-secret-key`
-- `Bearer <JSON Web Token>` *(Generated at Login. See below for instructions)
+- `Bearer <JSON Web Token>` *(Generated at Login. See below for instructions)*
 
 #### Request Body
 *Requires `headers: {'Content-Type': 'application/json'}`*
@@ -122,7 +123,7 @@ Securities: XSS, CORS, Helmet
 **Method:** `PATCH` \
 **Auth required:** Yes
 - `Bearer my-secret-key`
-- `Bearer <JSON Web Token>` *(Generated at Login. See below for instructions)
+- `Bearer <JSON Web Token>` *(Generated at Login. See below for instructions)*
 
 #### Request Body
 *Requires `headers: {'Content-Type': 'application/json'}`*
@@ -153,7 +154,7 @@ Securities: XSS, CORS, Helmet
 | `github`        | string  | header | GitHub project link       |
 
 #### Success Reponse
-**Code:** `201 Created` *Resource updated successfully, and refreshes.* \
+**Code:** `201 Created` *(Resource updated successfully, and refreshes.)* \
 **Content example**
 ```
 [
@@ -182,13 +183,13 @@ All values will be necessary in Update due to previous empty field validation
 **Method:** `DELETE` \
 **Auth required:** Yes
 - `Bearer my-secret-key`
-- `Bearer <JSON Web Token>` *(Generated at Login. See below for instructions)
+- `Bearer <JSON Web Token>` *(Generated at Login. See below for instructions)*
 
 #### Success Reponse
 **Code:** `301 Moved Permanently` \
 **Content example**
 
-*<pre><No Content></pre>*
+&lt;*No Content*&gt;
 
 ---
 ### Local Set-Up
