@@ -10,7 +10,6 @@ const AccessRouter = express.Router();
 AccessRouter.route('/login')
   .post(authentication, (req, res) => {
     const { username, id } = req.body;
-    console.log(username, id);
     if (req.apiKey) {
       return res.json({ apiKey: req.apiKey, user: {id, username} })
     } else {

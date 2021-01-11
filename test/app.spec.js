@@ -4,15 +4,12 @@ const { createUsers, createProjects, createIssues } = require('./app.fixtures.js
 const { v4: uuid } = require('uuid');
 const knex = require('knex');
 const app = require('../src/app');
-const UsersService = require('../src/users-service');
-const ProjectsService = require('../src/projects-service');
-const IssuesService = require('../src/issues-service');
-const { TEST_DB_URL } = require('../src/config.js');
+const { TEST_DATABASE_URL } = require('../src/config.js');
 
 describe('The App', () => {
   const db = knex({
     client: 'pg',
-    connection: TEST_DB_URL
+    connection: TEST_DATABASE_URL
   });
   
   app.set('db', db);
@@ -25,9 +22,9 @@ describe('The App', () => {
     return db.destroy();
   });
   context('renders Landing Page', () => {
-    it('GET /api responds with 200 status and an html page.', () => {
+    it('GET / responds with 200 status and an html page.', () => {
       return supertest(app)
-        .get('/api')
+        .get('/')
         .expect(200)
         .expect('Content-Type', /html/);
     });
