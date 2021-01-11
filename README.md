@@ -21,6 +21,8 @@
 ---
 ## <div align='center'>API Request Instructions:</div>
 
+### <div align='center'> Landing Page:</div>
+
 ### Render Landing Page
 **URL:** `/` \
 **Method:** `GET` \
@@ -32,17 +34,11 @@
 
 &lt;*HTML file*&gt;
 
-
-
-
-
-
-
-
-
 ---
+### <div align='center'> Projects</div>
+
 ### Get Projects
-**URL:** `/projects` \
+**URL:** `/api/projects` \
 **Method:** `GET` \
 **Auth required:** No
 
@@ -70,11 +66,11 @@
 
 ---
 ### Add Project
-**URL:** `/projects` \
+**URL:** `/api/projects` \
 **Method:** `POST` \
 **Auth required:** Yes
 - `Bearer my-secret-key`
-- `Bearer <JSON Web Token>` *(Generated at Login. See below for instructions)*
+- `Bearer <JSON Web Token>` *(Generated at Login. See above for instructions)*
 
 #### Request Body
 *Requires `headers: {'Content-Type': 'application/json'}`*
@@ -127,11 +123,11 @@
 
 ---
 ### Edit Project
-**URL:** `/projects/:projectID` \
+**URL:** `/api/projects/:projectID` \
 **Method:** `PATCH` \
 **Auth required:** Yes
 - `Bearer my-secret-key`
-- `Bearer <JSON Web Token>` *(Generated at Login. See below for instructions)*
+- `Bearer <JSON Web Token>` *(Generated at Login. See above for instructions)*
 
 #### Request Body
 *Requires `headers: {'Content-Type': 'application/json'}`*
@@ -187,11 +183,11 @@ All values will be necessary in Update due to previous empty field validation
 
 ---
 ### Delete Project
-**URL:** `/projects/:projectID` \
+**URL:** `/api/projects/:projectID` \
 **Method:** `DELETE` \
 **Auth required:** Yes
 - `Bearer my-secret-key`
-- `Bearer <JSON Web Token>` *(Generated at Login. See below for instructions)*
+- `Bearer <JSON Web Token>` *(Generated at Login. See above for instructions)*
 
 | Name            | Type    | In     | Description               |
 | ----------------| ------- | ------ | ------------------------- |
@@ -204,8 +200,10 @@ All values will be necessary in Update due to previous empty field validation
 &lt;*No Content*&gt;
 
 ---
+### <div align='center'> Issues</div>
+
 ### Get Issues
-**URL:** `/issues` \
+**URL:** `/api/issues` \
 **Method:** `GET` \
 **Auth required:** No
 
@@ -234,11 +232,11 @@ All values will be necessary in Update due to previous empty field validation
 
 ---
 ### Add Issue
-**URL:** `/issues` \
+**URL:** `/api/issues` \
 **Method:** `POST` \
 **Auth required:** Yes
 - `Bearer my-secret-key`
-- `Bearer <JSON Web Token>` *(Generated at Login. See below for instructions)*
+- `Bearer <JSON Web Token>` *(Generated at Login. See above for instructions)*
 
 #### Request Body
 *Requires `headers: {'Content-Type': 'application/json'}`*
@@ -295,11 +293,11 @@ All values will be necessary in Update due to previous empty field validation
 
 ---
 ### Edit Issue
-**URL:** `/issue/:issueID` \
+**URL:** `/api/issue/:issueID` \
 **Method:** `PATCH` \
 **Auth required:** Yes
 - `Bearer my-secret-key`
-- `Bearer <JSON Web Token>` *(Generated at Login. See below for instructions)*
+- `Bearer <JSON Web Token>` *(Generated at Login. See above for instructions)*
 
 #### Request Body
 *Requires `headers: {'Content-Type': 'application/json'}`*
@@ -358,15 +356,172 @@ All values will be necessary in Update due to previous empty field validation
 
 ---
 ### Delete Issue
-**URL:** `/issues/:issueID` \
+**URL:** `/api/issues/:issueID` \
 **Method:** `DELETE` \
 **Auth required:** Yes
 - `Bearer my-secret-key`
-- `Bearer <JSON Web Token>` *(Generated at Login. See below for instructions)*
+- `Bearer <JSON Web Token>` *(Generated at Login. See above for instructions)*
 
 | Name            | Type    | In     | Description               |
 | ----------------| ------- | ------ | ------------------------- |
 | `issueID`       | integer | path   | Project ID (Primary Key)  |
+
+#### Success Reponse
+**Code:** `301 Moved Permanently` \
+**Content example**
+
+&lt;*No Content*&gt;
+
+
+---
+### <div align='center'> Users</div>
+
+### Get Users
+**URL:** `/api/users` \
+**Method:** `GET` \
+**Auth required:** Yes
+- `Bearer my-secret-key`
+- `Bearer <JSON Web Token>` *(Generated at Login. See above for instructions)*
+
+#### Success Reponse
+**Code:** `200 OK` \
+**Content example**
+```
+[
+  {
+    "id": "1",
+    "username": "username",
+    "firstName": "Name",
+    "lastName": "Last Name",
+    "email": "email@gmail.com",
+    "tools": "Languages/Tools",
+    "startDate": "Wed Dec 23 2020 00:00:00 GMT-0700",
+    "github": "github.com/username",
+    "role": "User"
+  },
+
+  [...]
+]
+```
+
+---
+### Add User
+**URL:** `/api/users` \
+**Method:** `POST` \
+**Auth required:** Yes
+- `Bearer my-secret-key`
+- `Bearer <JSON Web Token>` *(Generated at Login. See above for instructions)*
+
+#### Request Body
+*Requires `headers: {'Content-Type': 'application/json'}`*
+```
+  {
+    "username": "username",
+    "password": "password",
+    "firstName": "Name",
+    "lastName": "Last Name",
+    "email": "email@gmail.com",
+    "tools": "Languages/Tools",
+    "github": "github.com/username",
+  }
+```
+| Name            | Type    | In     | Description               |
+| ----------------| ------- | ------ | ------------------------- |
+| `username`      | string  | header | Unique username           |
+| `password`      | string  | header | Hashed (bcrypt) password  |
+| `firstName`     | string  | header | First name of user        |
+| `lastName`      | string  | header | Last name of user         |
+| `email`         | string  | header | User email                |
+| `tools`         | string  | header | Languages/Tools used      |
+| `github`        | string  | header | GitHub Profile            |
+
+#### Success Reponse
+**Code:** `201 Created` \
+**Content example**
+```
+[
+  {
+    "id": "1",
+    "username": "username",
+    "password": "password",
+    "firstName": "Name",
+    "lastName": "Last Name",
+    "email": "email@gmail.com",
+    "tools": "Languages/Tools",
+    "github": "github.com/username",
+    "role": "User"
+  },
+  
+  [...]
+]
+```
+
+---
+### Edit User
+**URL:** `/users/:userID` \
+**Method:** `PATCH` \
+**Auth required:** Yes
+- `Bearer my-secret-key`
+- `Bearer <JSON Web Token>` *(Generated at Login. See above for instructions)*
+
+#### Request Body
+*Requires `headers: {'Content-Type': 'application/json'}`*
+```
+{
+  "username": "newUserName",
+  "firstName": "Name",
+  "lastName": "Last Name",
+  "email": "newEmail@gmail.com",
+  "tools": "Updated Tools",
+  "startDate": "12/23/2020",
+  "github": "github.com/username",
+}
+```
+| Name            | Type    | In     | Description               |
+| ----------------| ------- | ------ | ------------------------- |
+| `userID`        | integer | path   | User ID (Primary Key)     |
+| `username`      | string  | header | Unique username           |
+| `firstName`     | string  | header | First name of user        |
+| `lastName`      | string  | header | Last name of user         |
+| `email`         | string  | header | User email                |
+| `tools`         | string  | header | Languages/Tools used      |
+| `startDate`     | string  | header | Date created              |
+| `github`        | string  | header | GitHub Profile            |
+
+#### Success Reponse
+**Code:** `201 Created` *(Resource updated successfully, and refreshes.)* \
+**Content example**
+```
+[
+  {
+    "id": "1",
+    "username": "newUserName",
+    "firstName": "Name",
+    "lastName": "Last Name",
+    "email": "newEmail@gmail.com",
+    "tools": "Updated Tools",
+    "startDate": "Wed Dec 23 2020 00:00:00 GMT-0700",
+    "github": "github.com/username",
+    "role": "User"
+  },
+
+  [...]
+]
+```
+#### Notes
+All values will be necessary in Update due to previous empty field validation
+
+---
+### Delete Issue
+**URL:** `/issues/:issueID` \
+**Method:** `DELETE` \
+**Auth required:** Yes
+- `Bearer my-secret-key`
+- `Bearer <JSON Web Token>` *(Generated at Login. See above for instructions)*
+
+| Name            | Type    | In     | Description               |
+| ----------------| ------- | ------ | ------------------------- |
+| `userID`        | integer | path   | User ID (Primary Key)     |
 
 #### Success Reponse
 **Code:** `301 Moved Permanently` \
