@@ -18,7 +18,7 @@ Securities: XSS, CORS, Helmet
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Heroku
 
 ---
-### <p align='center'>API Request Instructions:</p>
+### <div align='center'>API Request Instructions:</div>
 
 #### Render Landing Page
 **URL:** `/` \
@@ -27,11 +27,11 @@ Securities: XSS, CORS, Helmet
 
 #### Success Reponse
 **Code:** `200 OK` \
-**Content example** \
+**Content example**
+
 &lt;*HTML file*&gt;
 
-- - -
-
+---
 ### Get Projects
 **URL:** `/projects` \
 **Method:** `GET` \
@@ -95,7 +95,7 @@ Securities: XSS, CORS, Helmet
 | `github`        | string  | header | GitHub project link       |
 
 #### Success Reponse
-**Code:** `201 Created`
+**Code:** `201 Created` \
 **Content example**
 ```
 [
@@ -118,14 +118,14 @@ Securities: XSS, CORS, Helmet
 
 ---
 #### Edit Project
-**URL:** `/projects/:projectID`
-**Method:** `PATCH`
+**URL:** `/projects/:projectID` \
+**Method:** `PATCH` \
 **Auth required:** Yes
 - `Bearer my-secret-key`
 - `Bearer <JSON Web Token>` *(Generated at Login. See below for instructions)
 
 ### Request Body
-*Requires `headers: {'Content-Type': 'application/json'}`
+*Requires `headers: {'Content-Type': 'application/json'}`*
 ```
 {
     "name": "New Name",
@@ -153,7 +153,7 @@ Securities: XSS, CORS, Helmet
 | `github`        | string  | header | GitHub project link       |
 
 #### Success Reponse
-**Code:** `201 Created` *Resource updated successfully, and refreshes.*
+**Code:** `201 Created` *Resource updated successfully, and refreshes.* \
 **Content example**
 ```
 [
@@ -178,15 +178,16 @@ All values will be necessary in Update due to previous empty field validation
 
 ---
 #### Delete Project
-**URL:** `/projects/:projectID`
-**Method:** `DELETE`
+**URL:** `/projects/:projectID` \
+**Method:** `DELETE` \
 **Auth required:** Yes
 - `Bearer my-secret-key`
 - `Bearer <JSON Web Token>` *(Generated at Login. See below for instructions)
 
 #### Success Reponse
-**Code:** `301 Moved Permanently`
+**Code:** `301 Moved Permanently` \
 **Content example**
+
 *<pre><No Content></pre>*
 
 ---
