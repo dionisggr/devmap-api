@@ -19,8 +19,176 @@ Securities: XSS, CORS, Helmet
 
 ---
 ### API Request Instructions:
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;https://afternoon-dawn-05389.herokuapp.com/
 
+#### Render Landing Page
+**URL:** `/`
+**Method:** `GET`
+**Auth required:** No
+
+#### Success Reponse
+**Code:** `200 OK`
+**Content example**
+*<pre><HTML file></pre>*
+
+---
+#### Get Projects
+**URL:** `/projects`
+**Method:** `GET`
+**Auth required:** No
+
+#### Success Reponse
+**Code:** `200 OK`
+**Content example**
+```
+[
+  {
+    "id": "1",
+    "name": "Project 1",
+    "description": "First description",
+    "tools": "HTML/CSS",
+    "phase": "Design",
+    "status": "Delayed",
+    "owner": "username",
+    "startDate": "Tue Dec 22 2020 00:00:00 GMT-0700 (Mountain Standard Time)",
+    "collaboration": true,
+    "github": "github.com/username/project"
+  },
+
+  [...]
+]
+```
+
+---
+#### Add Project
+**URL:** `/projects`
+**Method:** `POST`
+**Auth required:** Yes
+- `Bearer my-secret-key`
+- `Bearer <JSON Web Token>` *(Generated at Login. See below for instructions)
+
+### Request Body
+*Requires `headers: {'Content-Type': 'application/json'}`*
+```
+{
+    "name": "Project 1",
+    "description": "First description",
+    "tools": "HTML/CSS",
+    "phase": "Design",
+    "status": "Delayed",
+    "owner": "username",
+    "startDate": "12/22/2020",
+    "collaboration": true,
+    "github": "github.com/username/project"
+  }
+```
+| Name            | Type    | In     | Description               |
+| ----------------| ------- | ------ | ------------------------- |
+| `name`          | string  | header | Name of project           |
+| `description`   | string  | header | Description of project    |
+| `tools`         | string  | header | Languages/Tools required  |
+| `phase`         | string  | header | Project Phase             |
+| `status`        | string  | header | Project Phase status      |
+| `owner`         | string  | header | Creator of project        |
+| `startDate`     | string  | header | Date created              |
+| `collaboration` | boolean | header | Accepts collaboration     |
+| `github`        | string  | header | GitHub project link       |
+
+#### Success Reponse
+**Code:** `201 Created`
+**Content example**
+```
+[
+  {
+    "id": "1",
+    "name": "Project 1",
+    "description": "First description",
+    "tools": "HTML/CSS",
+    "phase": "Design",
+    "status": "Delayed",
+    "owner": "username",
+    "startDate": "Tue Dec 22 2020 00:00:00 GMT-0700 (Mountain Standard Time)",
+    "collaboration": true,
+    "github": "github.com/username/project"
+  },
+
+  [...]
+]
+```
+
+---
+#### Edit Project
+**URL:** `/projects/:projectID`
+**Method:** `PATCH`
+**Auth required:** Yes
+- `Bearer my-secret-key`
+- `Bearer <JSON Web Token>` *(Generated at Login. See below for instructions)
+
+### Request Body
+*Requires `headers: {'Content-Type': 'application/json'}`
+```
+{
+    "name": "New Name",
+    "description": "New Description",
+    "tools": "HTML/CSS",
+    "phase": "Design",
+    "status": "Delayed",
+    "owner": "username",
+    "startDate": "12/22/2020",
+    "collaboration": true,
+    "github": "github.com/username/project"
+  }
+```
+| Name            | Type    | In     | Description               |
+| ----------------| ------- | ------ | ------------------------- |
+| `projectID`     | integer | path   | Project ID (Primary Key)  |
+| `name`          | string  | header | Name of project           |
+| `description`   | string  | header | Description of project    |
+| `tools`         | string  | header | Languages/Tools required  |
+| `phase`         | string  | header | Project Phase             |
+| `status`        | string  | header | Project Phase status      |
+| `owner`         | string  | header | Creator of project        |
+| `startDate`     | string  | header | Date created              |
+| `collaboration` | boolean | header | Accepts collaboration     |
+| `github`        | string  | header | GitHub project link       |
+
+#### Success Reponse
+**Code:** `201 Created` *Resource updated successfully, and refreshes.*
+**Content example**
+```
+[
+  {
+    "id": "1",
+    "name": "New Name",
+    "description": "New Description",
+    "tools": "HTML/CSS",
+    "phase": "Design",
+    "status": "Delayed",
+    "owner": "username",
+    "startDate": "Tue Dec 22 2020 00:00:00 GMT-0700 (Mountain Standard Time)",
+    "collaboration": true,
+    "github": "github.com/username/project"
+  },
+
+  [...]
+]
+```
+### Notes
+All values will be necessary in Update due to previous empty field validation
+
+---
+#### Delete Project
+**URL:** `/projects/:projectID`
+**Method:** `DELETE`
+**Auth required:** Yes
+- `Bearer my-secret-key`
+- `Bearer <JSON Web Token>` *(Generated at Login. See below for instructions)
+
+#### Success Reponse
+**Code:** `301 Moved Permanently`
+**Content example**
+*<pre><No Content></pre>*
+
+---
 ### Local Set-Up
 Complete the following steps to clone a local copy of the server:
 
