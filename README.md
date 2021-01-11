@@ -28,7 +28,7 @@ Securities: XSS, CORS, Helmet
 #### Success Reponse
 **Code:** `200 OK`
 **Content example**
-*<pre><HTML file></pre>*
+&lt;HTML file&gt;
 
 ---
 #### Get Projects
