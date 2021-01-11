@@ -18,7 +18,7 @@ Securities: XSS, CORS, Helmet
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Heroku
 
 ---
-<p align='center'>### API Request Instructions:</p>
+### <p align='center'>API Request Instructions:</p>
 
 #### Render Landing Page
 **URL:** `/` \
@@ -28,7 +28,7 @@ Securities: XSS, CORS, Helmet
 #### Success Reponse
 **Code:** `200 OK` \
 **Content example** \
-&lt;HTML file&gt;
+&lt;*HTML file*&gt;
 
 - - -
 
