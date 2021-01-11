@@ -20,8 +20,6 @@
 ---
 
 ## <div align='center'>API Request Instructions:</div>
-
----
 ### Open Endpoints
 Open endpoints that require no Authentication or Authorization.
 - [Signup](https://github.com/dionisggr/devmap-api/wiki/Access-Permission): `POST /signup`
@@ -32,7 +30,7 @@ Open endpoints that require no Authentication or Authorization.
 ### Endpoints that require Authentication
 Closed endpoints that require a valid username and password to be included in the header body of the request.
 - [Login](https://github.com/dionisggr/devmap-api/wiki/Access-Permission): `POST /login`
-  - 'Admin' credentials *(or you may [Register](https://devmap.vercel.app/signup))
+  - 'Admin' credentials *(or you may [Register](https://devmap.vercel.app/signup))*
     - Username: `dionisggr`
     - Password: `password`
 
@@ -49,21 +47,21 @@ If sending content through request body (`POST`, `PATCH`), don't forget to add t
 headers" {'Content-Type': 'application/json'}
 ```
 
-**Project related**
+#### Project related
 
 Each endpoint manipulates information related to projects.
 - [Create a Project](https://github.com/dionisggr/devmap-api/wiki/Projects): `POST /api/projects`
 - [Update a Project](https://github.com/dionisggr/devmap-api/wiki/Projects): `PATCH /api/projects/:projectID`
 - [Delete a Project](https://github.com/dionisggr/devmap-api/wiki/Projects): `DELETE /api/projects/:projectID`
 
-**Issue related**
+#### Issue related
 
 Each endpoint manipulates information related to issues.
 - [Create an Issue](https://github.com/dionisggr/devmap-api/wiki/Issues): `POST /api/issues`
 - [Update an Issue](https://github.com/dionisggr/devmap-api/wiki/Issues): `PATCH /api/projects/:issueID`
 - [Delete an Issue](https://github.com/dionisggr/devmap-api/wiki/Issues): `DELETE /api/projects/:issueID`
 
-**User related**
+#### User related
 
 Each endpoint manipulates information related to users.
 - [Create an User](https://github.com/dionisggr/devmap-api/wiki/Users): `POST /api/users`
