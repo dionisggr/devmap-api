@@ -17,519 +17,55 @@
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**Loggers:** Morgan, Winston \
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**Securities:** XSS, CORS, Helmet
 
-
 ---
+
 ## <div align='center'>API Request Instructions:</div>
 
-### <div align='center'> Landing Page:</div>
+### Open Endpoints
+---
+Open endpoints that require no Authentication or Authorization.
+- ![Signup](https://github.com/dionisggr/devmap-api/wiki/Access-Permission)
+- ![Show Projects](https://github.com/dionisggr/devmap-api/wiki/Projects)
+- ![Show Issues](https://github.com/dionisggr/devmap-api/wiki/Issues)
 
-### Render Landing Page
-**URL:** `/` \
-**Method:** `GET` \
-**Auth required:** No
+### Endpoints that require Authentication
+---
+Closed endpoints that require a valid username and password to be included in the header body of the request.
+- ![Login](https://github.com/dionisggr/devmap-api/wiki/Access-Permission): `POST /login'
+  - 'Admin' credentials *(or you may ![Register](https://devmap.vercel.app/signup))
+    - Username: `dionisggr`
+    - Password: `password`
 
-#### Success Reponse
-**Code:** `200 OK` \
-**Content example**
+### Endpoints that require Authorization
+---
+Closed endpoints that require a valid JSON Web Token to be inlcuded in the header 'Authorization' of the request. For 'Admin' privileges:
+```
+// Add to request header
+headers: {'Authorization': 'Bearer my-secret-key'}
+```
+If sending content through request body (`/post` `patch`), don't forget to add the following in the headers:
+```
+headers" {'Content-Type': 'application/json'}
+```
 
-&lt;*HTML file*&gt;
+Project related \
+Each endpoint manipulates information related to projects.
+- ![Create a Project](https://github.com/dionisggr/devmap-api/wiki/Projects): `POST /api/projects`
+- ![Update a Project](https://github.com/dionisggr/devmap-api/wiki/Projects): `PATCH /api/projects/:projectID`
+- ![Delete a Project](https://github.com/dionisggr/devmap-api/wiki/Projects): `DELETE /api/projects/:projectID`
+
+Issue related
+- ![Create an Issue](https://github.com/dionisggr/devmap-api/wiki/Issues): `POST /api/issues`
+- ![Update an Issue](https://github.com/dionisggr/devmap-api/wiki/Issues): `PATCH /api/projects/:issueID`
+- ![Delete an Issue](https://github.com/dionisggr/devmap-api/wiki/Issues): `DELETE /api/projects/:issueID`
+
+User related
+- ![Create an User](https://github.com/dionisggr/devmap-api/wiki/Users): `POST /api/users`
+- ![Update an User](https://github.com/dionisggr/devmap-api/wiki/Users): `PATCH /api/projects/:userID`
+- ![Delete an User](https://github.com/dionisggr/devmap-api/wiki/Users): `DELETE /api/projects/:userID`
 
 ---
-### <div align='center'> Projects</div>
 
-### Get Projects
-**URL:** `/api/projects` \
-**Method:** `GET` \
-**Auth required:** No
-
-#### Success Reponse
-**Code:** `200 OK` \
-**Content example**
-```
-[
-  {
-    "id": "1",
-    "name": "Project 1",
-    "description": "First description",
-    "tools": "HTML/CSS",
-    "phase": "Design",
-    "status": "Delayed",
-    "owner": "username",
-    "startDate": "Tue Dec 22 2020 00:00:00 GMT-0700",
-    "collaboration": true,
-    "github": "github.com/username/project"
-  },
-
-  [...]
-]
-```
-
----
-### Add Project
-**URL:** `/api/projects` \
-**Method:** `POST` \
-**Auth required:** Yes
-- `Bearer my-secret-key`
-- `Bearer <JSON Web Token>` *(Generated at Login. See above for instructions)*
-
-#### Request Body
-*Requires `headers: {'Content-Type': 'application/json'}`*
-```
-{
-    "name": "Project 1",
-    "description": "First description",
-    "tools": "HTML/CSS",
-    "phase": "Design",
-    "status": "Delayed",
-    "owner": "username",
-    "startDate": "12/22/2020",
-    "collaboration": true,
-    "github": "github.com/username/project"
-  }
-```
-| Name            | Type    | In     | Description               |
-| ----------------| ------- | ------ | ------------------------- |
-| `name`          | string  | header | Name of project           |
-| `description`   | string  | header | Description of project    |
-| `tools`         | string  | header | Languages/Tools required  |
-| `phase`         | string  | header | Project Phase             |
-| `status`        | string  | header | Project Phase status      |
-| `owner`         | string  | header | Creator of project        |
-| `startDate`     | string  | header | Date created              |
-| `collaboration` | boolean | header | Accepts collaboration     |
-| `github`        | string  | header | GitHub project link       |
-
-#### Success Reponse
-**Code:** `201 Created` \
-**Content example**
-```
-[
-  {
-    "id": "1",
-    "name": "Project 1",
-    "description": "First description",
-    "tools": "HTML/CSS",
-    "phase": "Design",
-    "status": "Delayed",
-    "owner": "username",
-    "startDate": "Tue Dec 22 2020 00:00:00 GMT-0700",
-    "collaboration": true,
-    "github": "github.com/username/project"
-  },
-
-  [...]
-]
-```
-
----
-### Edit Project
-**URL:** `/api/projects/:projectID` \
-**Method:** `PATCH` \
-**Auth required:** Yes
-- `Bearer my-secret-key`
-- `Bearer <JSON Web Token>` *(Generated at Login. See above for instructions)*
-
-#### Request Body
-*Requires `headers: {'Content-Type': 'application/json'}`*
-```
-{
-    "name": "New Name",
-    "description": "New Description",
-    "tools": "HTML/CSS",
-    "phase": "Design",
-    "status": "Delayed",
-    "owner": "username",
-    "startDate": "12/22/2020",
-    "collaboration": true,
-    "github": "github.com/username/project"
-  }
-```
-| Name            | Type    | In     | Description               |
-| ----------------| ------- | ------ | ------------------------- |
-| `projectID`     | integer | path   | Project ID (Primary Key)  |
-| `name`          | string  | header | Name of project           |
-| `description`   | string  | header | Description of project    |
-| `tools`         | string  | header | Languages/Tools required  |
-| `phase`         | string  | header | Project Phase             |
-| `status`        | string  | header | Project Phase status      |
-| `owner`         | string  | header | Creator of project        |
-| `startDate`     | string  | header | Date created              |
-| `collaboration` | boolean | header | Accepts collaboration     |
-| `github`        | string  | header | GitHub project link       |
-
-#### Success Reponse
-**Code:** `201 Created` *(Resource updated successfully, and refreshes.)* \
-**Content example**
-```
-[
-  {
-    "id": "1",
-    "name": "New Name",
-    "description": "New Description",
-    "tools": "HTML/CSS",
-    "phase": "Design",
-    "status": "Delayed",
-    "owner": "username",
-    "startDate": "Tue Dec 22 2020 00:00:00 GMT-0700",
-    "collaboration": true,
-    "github": "github.com/username/project"
-  },
-
-  [...]
-]
-```
-#### Notes
-All values will be necessary in Update due to previous empty field validation
-
----
-### Delete Project
-**URL:** `/api/projects/:projectID` \
-**Method:** `DELETE` \
-**Auth required:** Yes
-- `Bearer my-secret-key`
-- `Bearer <JSON Web Token>` *(Generated at Login. See above for instructions)*
-
-| Name            | Type    | In     | Description               |
-| ----------------| ------- | ------ | ------------------------- |
-| `projectID`     | integer | path   | Project ID (Primary Key)  |
-
-#### Success Reponse
-**Code:** `301 Moved Permanently` \
-**Content example**
-
-&lt;*No Content*&gt;
-
----
-### <div align='center'> Issues</div>
-
-### Get Issues
-**URL:** `/api/issues` \
-**Method:** `GET` \
-**Auth required:** No
-
-#### Success Reponse
-**Code:** `200 OK` \
-**Content example**
-```
-[
-  {
-    "id": "1",
-    "name": "Project 1",
-    "description": "First description",
-    "tools": "HTML/CSS",
-    "phase": "Design",
-    "status": "Delayed",
-    "owner": "username",
-    "startDate": "Tue Dec 22 2020 00:00:00 GMT-0700",
-    "collaboration": true,
-    "github": "github.com/username/project",
-    "projectID": "1"
-  },
-
-  [...]
-]
-```
-
----
-### Add Issue
-**URL:** `/api/issues` \
-**Method:** `POST` \
-**Auth required:** Yes
-- `Bearer my-secret-key`
-- `Bearer <JSON Web Token>` *(Generated at Login. See above for instructions)*
-
-#### Request Body
-*Requires `headers: {'Content-Type': 'application/json'}`*
-```
-{
-    "name": "Issue 1",
-    "description": "First description",
-    "tools": "HTML/CSS",
-    "phase": "Design",
-    "status": "Delayed",
-    "owner": "username",
-    "startDate": "12/22/2020",
-    "collaboration": true,
-    "github": "github.com/username/project",
-    "projectID": "1"
-  }
-```
-| Name            | Type    | In     | Description               |
-| ----------------| ------- | ------ | ------------------------- |
-| `name`          | string  | header | Name of project           |
-| `description`   | string  | header | Description of project    |
-| `tools`         | string  | header | Languages/Tools required  |
-| `phase`         | string  | header | Project Phase             |
-| `status`        | string  | header | Project Phase status      |
-| `owner`         | string  | header | Creator of project        |
-| `startDate`     | string  | header | Date created              |
-| `collaboration` | boolean | header | Accepts collaboration     |
-| `github`        | string  | header | GitHub project link       |
-| `projectID`     | integer | header | Project ID (Primary Key)  |
-
-
-#### Success Reponse
-**Code:** `201 Created` \
-**Content example**
-```
-[
-  {
-    "id": "1",
-    "name": "Issue 1",
-    "description": "First description",
-    "tools": "HTML/CSS",
-    "phase": "Design",
-    "status": "Delayed",
-    "owner": "username",
-    "startDate": "Tue Dec 22 2020 00:00:00 GMT-0700",
-    "collaboration": true,
-    "github": "github.com/username/project",
-    "projectID": "1"
-  },
-
-  [...]
-]
-```
-
----
-### Edit Issue
-**URL:** `/api/issue/:issueID` \
-**Method:** `PATCH` \
-**Auth required:** Yes
-- `Bearer my-secret-key`
-- `Bearer <JSON Web Token>` *(Generated at Login. See above for instructions)*
-
-#### Request Body
-*Requires `headers: {'Content-Type': 'application/json'}`*
-```
-{
-    "name": "New Name",
-    "description": "New Description",
-    "tools": "HTML/CSS",
-    "phase": "Design",
-    "status": "Delayed",
-    "owner": "username",
-    "startDate": "12/22/2020",
-    "collaboration": true,
-    "github": "github.com/username/project",
-    "projectID": "1"
-  }
-```
-| Name            | Type    | In     | Description               |
-| ----------------| ------- | ------ | ------------------------- |
-| `issueID `      | integer | path   | Issue ID (Primary Key)    |
-| `projectID`     | integer | header | Project ID (Primary Key)  |
-| `name`          | string  | header | Name of project           |
-| `description`   | string  | header | Description of project    |
-| `tools`         | string  | header | Languages/Tools required  |
-| `phase`         | string  | header | Project Phase             |
-| `status`        | string  | header | Project Phase status      |
-| `owner`         | string  | header | Creator of project        |
-| `startDate`     | string  | header | Date created              |
-| `collaboration` | boolean | header | Accepts collaboration     |
-| `github`        | string  | header | GitHub project link       |
-
-#### Success Reponse
-**Code:** `201 Created` *(Resource updated successfully, and refreshes.)* \
-**Content example**
-```
-[
-  {
-    "id": "1",
-    "name": "New Name",
-    "description": "New Description",
-    "tools": "HTML/CSS",
-    "phase": "Design",
-    "status": "Delayed",
-    "owner": "username",
-    "startDate": "Tue Dec 22 2020 00:00:00 GMT-0700",
-    "collaboration": true,
-    "github": "github.com/username/project",
-    "projectID": "1"
-  },
-
-  [...]
-]
-```
-#### Notes
-All values will be necessary in Update due to previous empty field validation
-
----
-### Delete Issue
-**URL:** `/api/issues/:issueID` \
-**Method:** `DELETE` \
-**Auth required:** Yes
-- `Bearer my-secret-key`
-- `Bearer <JSON Web Token>` *(Generated at Login. See above for instructions)*
-
-| Name            | Type    | In     | Description               |
-| ----------------| ------- | ------ | ------------------------- |
-| `issueID`       | integer | path   | Project ID (Primary Key)  |
-
-#### Success Reponse
-**Code:** `301 Moved Permanently` \
-**Content example**
-
-&lt;*No Content*&gt;
-
-
----
-### <div align='center'> Users</div>
-
-### Get Users
-**URL:** `/api/users` \
-**Method:** `GET` \
-**Auth required:** Yes
-- `Bearer my-secret-key`
-- `Bearer <JSON Web Token>` *(Generated at Login. See above for instructions)*
-
-#### Success Reponse
-**Code:** `200 OK` \
-**Content example**
-```
-[
-  {
-    "id": "1",
-    "username": "username",
-    "firstName": "Name",
-    "lastName": "Last Name",
-    "email": "email@gmail.com",
-    "tools": "Languages/Tools",
-    "startDate": "Wed Dec 23 2020 00:00:00 GMT-0700",
-    "github": "github.com/username",
-    "role": "User"
-  },
-
-  [...]
-]
-```
-
----
-### Add User
-**URL:** `/api/users` \
-**Method:** `POST` \
-**Auth required:** Yes
-- `Bearer my-secret-key`
-- `Bearer <JSON Web Token>` *(Generated at Login. See above for instructions)*
-
-#### Request Body
-*Requires `headers: {'Content-Type': 'application/json'}`*
-```
-  {
-    "username": "username",
-    "password": "password",
-    "firstName": "Name",
-    "lastName": "Last Name",
-    "email": "email@gmail.com",
-    "tools": "Languages/Tools",
-    "github": "github.com/username",
-  }
-```
-| Name            | Type    | In     | Description               |
-| ----------------| ------- | ------ | ------------------------- |
-| `username`      | string  | header | Unique username           |
-| `password`      | string  | header | Hashed (bcrypt) password  |
-| `firstName`     | string  | header | First name of user        |
-| `lastName`      | string  | header | Last name of user         |
-| `email`         | string  | header | User email                |
-| `tools`         | string  | header | Languages/Tools used      |
-| `github`        | string  | header | GitHub Profile            |
-
-#### Success Reponse
-**Code:** `201 Created` \
-**Content example**
-```
-[
-  {
-    "id": "1",
-    "username": "username",
-    "password": "password",
-    "firstName": "Name",
-    "lastName": "Last Name",
-    "email": "email@gmail.com",
-    "tools": "Languages/Tools",
-    "github": "github.com/username",
-    "role": "User"
-  },
-  
-  [...]
-]
-```
-
----
-### Edit User
-**URL:** `/users/:userID` \
-**Method:** `PATCH` \
-**Auth required:** Yes
-- `Bearer my-secret-key`
-- `Bearer <JSON Web Token>` *(Generated at Login. See above for instructions)*
-
-#### Request Body
-*Requires `headers: {'Content-Type': 'application/json'}`*
-```
-{
-  "username": "newUserName",
-  "firstName": "Name",
-  "lastName": "Last Name",
-  "email": "newEmail@gmail.com",
-  "tools": "Updated Tools",
-  "startDate": "12/23/2020",
-  "github": "github.com/username",
-}
-```
-| Name            | Type    | In     | Description               |
-| ----------------| ------- | ------ | ------------------------- |
-| `userID`        | integer | path   | User ID (Primary Key)     |
-| `username`      | string  | header | Unique username           |
-| `firstName`     | string  | header | First name of user        |
-| `lastName`      | string  | header | Last name of user         |
-| `email`         | string  | header | User email                |
-| `tools`         | string  | header | Languages/Tools used      |
-| `startDate`     | string  | header | Date created              |
-| `github`        | string  | header | GitHub Profile            |
-
-#### Success Reponse
-**Code:** `201 Created` *(Resource updated successfully, and refreshes.)* \
-**Content example**
-```
-[
-  {
-    "id": "1",
-    "username": "newUserName",
-    "firstName": "Name",
-    "lastName": "Last Name",
-    "email": "newEmail@gmail.com",
-    "tools": "Updated Tools",
-    "startDate": "Wed Dec 23 2020 00:00:00 GMT-0700",
-    "github": "github.com/username",
-    "role": "User"
-  },
-
-  [...]
-]
-```
-#### Notes
-All values will be necessary in Update due to previous empty field validation
-
----
-### Delete Issue
-**URL:** `/issues/:issueID` \
-**Method:** `DELETE` \
-**Auth required:** Yes
-- `Bearer my-secret-key`
-- `Bearer <JSON Web Token>` *(Generated at Login. See above for instructions)*
-
-| Name            | Type    | In     | Description               |
-| ----------------| ------- | ------ | ------------------------- |
-| `userID`        | integer | path   | User ID (Primary Key)     |
-
-#### Success Reponse
-**Code:** `301 Moved Permanently` \
-**Content example**
-
-&lt;*No Content*&gt;
-
----
 ### Local Set-Up
 Complete the following steps to clone a local copy of the server:
 
@@ -550,6 +86,7 @@ Complete the following steps to clone a local copy of the server:
 7. Alternatively, you may start the application with nodemon `npm run dev`; tests will not run unless manually set to
 
 ---
+
 ## Landing Page
 
 ![Landing Page](https://github.com/dionisggr/devmap-api/blob/main/public/img/landing.png)
