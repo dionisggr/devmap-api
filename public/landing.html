@@ -15,9 +15,9 @@
       <div class="container">
         <h4>Congrats!</h4>
         <p>You're successfully running the DevMap Server!</p>
-        <br />
         <div id="resources">
           <div>
+            <br>
             <h4>Resources</h4>
             <ul>
               <li><a href="./api/users">/users</a><sup>x3</sup> (Admin)</li>
@@ -38,91 +38,83 @@
         </div>
         <br />
         <div id='instructions'></div>
+          <h2 style='text-align: center'>API Request Instructions:</h2>
+          
+          <h3>Open Endpoints</h3>
+          <p>Open endpoints that require no Authentication or Authorization.</p>
 
+          <ul>
+            <li><a href="https://github.com/dionisggr/devmap-api/wiki/Access-Permission">Signup</a>: <code>POST /signup</code></li>
+            <li><a href="https://github.com/dionisggr/devmap-api/wiki/Projects">Show Projects</a>: <code>GET /api/projects</code></li>
+            <li><a href="https://github.com/dionisggr/devmap-api/wiki/Issues">Show Issues</a>: <code>GET /api/issues</code></li>
+          </ul>
+          <hr />
 
+          <h3 id="endpoints-that-require-authentication">Endpoints that require Authentication</h3>
+          <p>Closed endpoints that require a valid username and password to be included in the header body of the request.</p>
 
+          <ul>
+            <li><a href="https://github.com/dionisggr/devmap-api/wiki/Access-Permission">Login</a>: <code>POST /login</code>
+              <ul>
+                <li>&#39;Admin&#39; credentials <em>(or you may <a href="https://devmap.vercel.app/signup">Register</a>)</em>
+                  <ul>
+                    <li>Username: <code>dionisggr</code></li>
+                    <li>Password: <code>password</code></li>
+                  </ul>
+                </li>
+              </ul>
+            </li>
+          </ul>
+          <hr>
 
+          <h3>Endpoints that require Authorization</h3>
+          <p>Closed endpoints that require a valid JSON Web Token to be inlcuded in the header &#39;Authorization&#39; of the request. For &#39;Admin&#39; privileges:</p>
 
-        <h2>API Request Instructions:</h2>
-        <h3>Open Endpoints</h3>
-        <p>Open endpoints that require no Authentication or Authorization.</p>
-        <ul>
-          <li><a href="https://github.com/dionisggr/devmap-api/wiki/Access-Permission">Signup</a>: <code>POST /signup</code></li>
-          <li><a href="https://github.com/dionisggr/devmap-api/wiki/Projects">Show Projects</a>: <code>GET /api/projects</code></li>
-          <li><a href="https://github.com/dionisggr/devmap-api/wiki/Issues">Show Issues</a>: <code>GET /api/issues</code></li>
-        </ul>
-        <hr />
-        <h3 id="endpoints-that-require-authentication">Endpoints that require Authentication</h3>
-        <p>Closed endpoints that require a valid username and password to be included in the header body of the request.</p>
-        <ul>
-          <li><a href="https://github.com/dionisggr/devmap-api/wiki/Access-Permission">Login</a>: <code>POST /login</code>
-            <ul>
-              <li>&#39;Admin&#39; credentials <em>(or you may <a href="https://devmap.vercel.app/signup">Register</a>)</em>
-                <ul>
-                  <li>Username: <code>dionisggr</code></li>
-                  <li>Password: <code>password</code></li>
-                </ul>
-              </li>
-            </ul>
-          </li>
-        </ul>
-        <hr>
-        
-        <h3>Endpoints that require Authorization</h3>
-        <p>Closed endpoints that require a valid JSON Web Token to be inlcuded in the header &#39;Authorization&#39; of the request. For &#39;Admin&#39; privileges:</p>
+          <pre><code>
+            // Add to request header
+            headers: {'Authorization': 'Bearer my-secret-key'}
+          </code></pre>
 
-        <pre><code>
-          // Add to request header
-          headers: {'Authorization': 'Bearer my-secret-key'}
-        </code></pre>
+          <p>If sending content through request body (<code>POST</code>, <code>PATCH</code>), don&#39;t forget to add the following in the headers:</p>
 
-        <p>If sending content through request body (<code>POST</code>, <code>PATCH</code>), don&#39;t forget to add the following in the headers:</p>
+          <pre><code>
+            // Add to request header
+            headers: {'Content-Type': 'application/json'}
+          </code></pre>
 
-        <pre><code>
-          // Add to request header
-          headers: {'Content-Type': 'application/json'}
-        </code></pre>
+          <h4>Project related</h4>
+          <p>Each endpoint manipulates information related to projects.</p>
+          <ul>
+            <li><a href="https://github.com/dionisggr/devmap-api/wiki/Projects">Create a Project</a>: <code>POST /api/projects</code></li>
+            <li><a href="https://github.com/dionisggr/devmap-api/wiki/Projects">Update a Project</a>: <code>PATCH /api/projects/:projectID</code></li>
+            <li><a href="https://github.com/dionisggr/devmap-api/wiki/Projects">Delete a Project</a>: <code>DELETE /api/projects/:projectID</code></li>
+          </ul>
 
-        <h4>Project related</h4>
-        <p>Each endpoint manipulates information related to projects.</p>
-        <ul>
-          <li><a href="https://github.com/dionisggr/devmap-api/wiki/Projects">Create a Project</a>: <code>POST /api/projects</code></li>
-          <li><a href="https://github.com/dionisggr/devmap-api/wiki/Projects">Update a Project</a>: <code>PATCH /api/projects/:projectID</code></li>
-          <li><a href="https://github.com/dionisggr/devmap-api/wiki/Projects">Delete a Project</a>: <code>DELETE /api/projects/:projectID</code></li>
-        </ul>
+          <h4>Issue related</h4>
+          <p>Each endpoint manipulates information related to issues.</p>
+          <ul>
+            <li><a href="https://github.com/dionisggr/devmap-api/wiki/Issues">Create an Issue</a>: <code>POST /api/issues</code></li>
+            <li><a href="https://github.com/dionisggr/devmap-api/wiki/Issues">Update an Issue</a>: <code>PATCH /api/projects/:issueID</code></li>
+            <li><a href="https://github.com/dionisggr/devmap-api/wiki/Issues">Delete an Issue</a>: <code>DELETE /api/projects/:issueID</code></li>
+          </ul>
 
-        <h4>Issue related</h4>
-        <p>Each endpoint manipulates information related to issues.</p>
-        <ul>
-          <li><a href="https://github.com/dionisggr/devmap-api/wiki/Issues">Create an Issue</a>: <code>POST /api/issues</code></li>
-          <li><a href="https://github.com/dionisggr/devmap-api/wiki/Issues">Update an Issue</a>: <code>PATCH /api/projects/:issueID</code></li>
-          <li><a href="https://github.com/dionisggr/devmap-api/wiki/Issues">Delete an Issue</a>: <code>DELETE /api/projects/:issueID</code></li>
-        </ul>
-
-        <h4>User related</h4>
-        <p>Each endpoint manipulates information related to users.</p>
-        <ul>
-          <li><a href="https://github.com/dionisggr/devmap-api/wiki/Users">Create an User</a>: <code>POST /api/users</code></li>
-          <li><a href="https://github.com/dionisggr/devmap-api/wiki/Users">Update an User</a>: <code>PATCH /api/projects/:userID</code></li>
-          <li><a href="https://github.com/dionisggr/devmap-api/wiki/Users">Delete an User</a>: <code>DELETE /api/projects/:userID</code></li>
-        </ul>
-
-
-
-
-
-
-
+          <h4>User related</h4>
+          <p>Each endpoint manipulates information related to users.</p>
+          <ul>
+            <li><a href="https://github.com/dionisggr/devmap-api/wiki/Users">Create an User</a>: <code>POST /api/users</code></li>
+            <li><a href="https://github.com/dionisggr/devmap-api/wiki/Users">Update an User</a>: <code>PATCH /api/projects/:userID</code></li>
+            <li><a href="https://github.com/dionisggr/devmap-api/wiki/Users">Delete an User</a>: <code>DELETE /api/projects/:userID</code></li>
+          </ul>
         </div>
+        <br />
+
         <h4>Documentation</h4>
-        <p>View
-          <a href="https://github.com/dionisggr/devmap-api/blob/main/README.md">README</a>
-        </p>
+        <p>View <a href="https://github.com/dionisggr/devmap-api/blob/main/README.md">README</a></p>
+
         <br />
         <br />
       </div>
     </main>
     <footer></footer>
-    <script type="text/javascript" src="landing.js"></script>
   </body>
 </html>
