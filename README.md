@@ -21,23 +21,24 @@ Securities: XSS, CORS, Helmet
 ### API Request Instructions:
 
 #### Render Landing Page
-**URL:** `/`
-**Method:** `GET`
+**URL:** `/` \
+**Method:** `GET` \
 **Auth required:** No
 
 #### Success Reponse
-**Code:** `200 OK`
-**Content example**
+**Code:** `200 OK` \
+**Content example** \
 &lt;HTML file&gt;
 
----
-#### Get Projects
-**URL:** `/projects`
-**Method:** `GET`
+<br />
+
+### Get Projects
+**URL:** `/projects` \
+**Method:** `GET` \
 **Auth required:** No
 
 #### Success Reponse
-**Code:** `200 OK`
+**Code:** `200 OK` \
 **Content example**
 ```
 [
@@ -49,7 +50,7 @@ Securities: XSS, CORS, Helmet
     "phase": "Design",
     "status": "Delayed",
     "owner": "username",
-    "startDate": "Tue Dec 22 2020 00:00:00 GMT-0700 (Mountain Standard Time)",
+    "startDate": "Tue Dec 22 2020 00:00:00 GMT-0700",
     "collaboration": true,
     "github": "github.com/username/project"
   },
@@ -59,14 +60,14 @@ Securities: XSS, CORS, Helmet
 ```
 
 ---
-#### Add Project
-**URL:** `/projects`
-**Method:** `POST`
+### Add Project
+**URL:** `/projects` \
+**Method:** `POST` \
 **Auth required:** Yes
 - `Bearer my-secret-key`
 - `Bearer <JSON Web Token>` *(Generated at Login. See below for instructions)
 
-### Request Body
+#### Request Body
 *Requires `headers: {'Content-Type': 'application/json'}`*
 ```
 {
@@ -106,7 +107,7 @@ Securities: XSS, CORS, Helmet
     "phase": "Design",
     "status": "Delayed",
     "owner": "username",
-    "startDate": "Tue Dec 22 2020 00:00:00 GMT-0700 (Mountain Standard Time)",
+    "startDate": "Tue Dec 22 2020 00:00:00 GMT-0700",
     "collaboration": true,
     "github": "github.com/username/project"
   },
@@ -164,7 +165,7 @@ Securities: XSS, CORS, Helmet
     "phase": "Design",
     "status": "Delayed",
     "owner": "username",
-    "startDate": "Tue Dec 22 2020 00:00:00 GMT-0700 (Mountain Standard Time)",
+    "startDate": "Tue Dec 22 2020 00:00:00 GMT-0700",
     "collaboration": true,
     "github": "github.com/username/project"
   },
