@@ -18,9 +18,9 @@ Securities: XSS, CORS, Helmet
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Heroku
 
 ---
-### <div align='center'>API Request Instructions:</div>
+## <div align='center'>API Request Instructions:</div>
 
-#### Render Landing Page
+### Render Landing Page
 **URL:** `/` \
 **Method:** `GET` \
 **Auth required:** No
@@ -117,14 +117,14 @@ Securities: XSS, CORS, Helmet
 ```
 
 ---
-#### Edit Project
+### Edit Project
 **URL:** `/projects/:projectID` \
 **Method:** `PATCH` \
 **Auth required:** Yes
 - `Bearer my-secret-key`
 - `Bearer <JSON Web Token>` *(Generated at Login. See below for instructions)
 
-### Request Body
+#### Request Body
 *Requires `headers: {'Content-Type': 'application/json'}`*
 ```
 {
@@ -173,11 +173,11 @@ Securities: XSS, CORS, Helmet
   [...]
 ]
 ```
-### Notes
+#### Notes
 All values will be necessary in Update due to previous empty field validation
 
 ---
-#### Delete Project
+### Delete Project
 **URL:** `/projects/:projectID` \
 **Method:** `DELETE` \
 **Auth required:** Yes
