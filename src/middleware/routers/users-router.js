@@ -56,7 +56,6 @@ UsersRouter.route('/api/users')
             return res.redirect(307, '/login');
           })
           .catch(error => {
-            console.log(error);
             error = error.detail.split('Key ')[1];
             return res.status(401).send({ error });
           });
