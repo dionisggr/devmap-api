@@ -50,6 +50,7 @@ IssuesRouter.route('/api/issues')
       .then(() => {
         IssuesService.addIssue(res.db, newIssue)
         .then(issue => {
+          console.log(issue);
           issue = {
             issue_id: issue.issue_id, name: xss(issue.name), description: xss(issue.description), 
             project_id: issue.project_id, tools: xss(issue.tools), phase: xss(issue.phase),

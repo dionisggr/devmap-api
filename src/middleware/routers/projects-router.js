@@ -22,7 +22,8 @@ ProjectsRouter.route('/api/projects')
             id: xss(project.id), name: xss(project.name), description: xss(project.description), 
             tools: xss(project.tools), phase: xss(project.phase), status: xss(project.status),
             owner: xss(project.owner), startDate: xss(project.startDate),
-            collaboration: project.collaboration, github: xss(project.github)
+            collaboration: project.collaboration, github: xss(project.github),
+            owner_id: xss(project.owner_id)
           };
           delete project.project_id;
           delete project.start_date;
