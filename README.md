@@ -19,7 +19,8 @@
 
 ---
 
-## <div align='center'>API Request Instructions:</div>
+## API Instructions
+
 ### Open Endpoints
 Open endpoints that require no Authentication or Authorization.
 - [Signup](https://github.com/dionisggr/devmap-api/wiki/Access-Permission): `POST /signup`

@@ -1,120 +1,1315 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-  </head>
-  <body>
-    <header>
-      <div class="container">
-        <h3>DevMap Server</h3>
-      </div>
-    </header>
-    <main>
-      <div class="container">
-        <h4>Congrats!</h4>
-        <p>You're successfully running the DevMap Server!</p>
-        <div id="resources">
-          <div>
-            <br>
-            <h4>Resources</h4>
-            <ul>
-              <li><a href="./api/users">/users</a><sup>x3</sup> (Admin)</li>
-              <li><a href="./api/projects">/projects</a> <sup>x3</sup></li>
-              <li><a href="./api/issues">/issues</a> <sup>x3</sup></li>
-            </ul>
-          </div>
-        </div>
-        <div id='paths'>
-          <p>
-            To access and modify resources, you can use any HTTP method
-            <br>
-            <code>GET</code>
-            <code>POST</code> <i>(Admin)</i>
-            <code>PATCH</code> <i>(Admin)</i>
-            <code>DELETE</code> <i>(Admin)</i>
-          </p>
-        </div>
-        <br />
-        <div id='instructions'></div>
-          <h2 style='text-align: center'>API Request Instructions:</h2>
-          
-          <h3>Open Endpoints</h3>
-          <p>Open endpoints that require no Authentication or Authorization.</p>
+<style>
+  main {
+    padding: 0 15px;
+    font-size: 110%;
+    line-height: 1.25em;
+    font-family: 'Times New Roman', Times, serif
+  }
 
+  h1 {
+    font-weight: bolder;
+    text-align: center;
+  }
+
+  h2 {
+    color: rgb(90, 11, 90);
+  }
+
+  h3 {
+    color: blue;
+    margin: 5px;
+  }
+
+  h4 {
+    font-weight: bolder;
+    color: green;
+    margin-top: 10px;
+    margin-bottom: 0;
+  }
+
+  code {
+    background-color: rgba(128, 128, 128, 0.151);
+    white-space: pre-wrap;
+    width: 70%;
+    white-space: pre;
+    overflow: auto;
+    margin-bottom: 25px;
+    max-width: 700px;
+  }
+
+  .code-block {
+    padding: 20px 25px;
+    margin-right: 10px;
+    border-radius: 2px;
+    margin-bottom: 50px;
+  }
+
+  div {
+    display: flex;
+    flex-direction: column;
+  }
+
+  div + h3 {
+    margin-top: 20px;
+  }
+
+  table, tr, th, td {
+    border: 1px solid black;
+    text-align: center;
+    max-width: 700px;
+    margin-bottom: 25px;
+  }
+
+  th {
+    margin: 0;
+  }
+
+  p {
+    text-indent: 20px;
+  }
+</style>
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <header>
+    <div class="container">
+      <h1>DevMap API</h1>
+    </div>
+  </header>
+  <main>
+    <div class="container">
+      <h4>Congrats!</h4>
+      <p>You've successfully arrived at the DevMap API!</p>
+      <div id="resources">
+        <div>
+          <br>
+          <h3>Resources</h3>
           <ul>
-            <li><a href="https://github.com/dionisggr/devmap-api/wiki/Access-Permission">Signup</a>: <code>POST /signup</code></li>
-            <li><a href="https://github.com/dionisggr/devmap-api/wiki/Projects">Show Projects</a>: <code>GET /api/projects</code></li>
-            <li><a href="https://github.com/dionisggr/devmap-api/wiki/Issues">Show Issues</a>: <code>GET /api/issues</code></li>
+            <li><a href="./api/users">/users</a><sup>x3</sup> (Admin)</li>
+            <li><a href="./api/projects">/projects</a> <sup>x3</sup></li>
+            <li><a href="./api/issues">/issues</a> <sup>x3</sup></li>
           </ul>
-          <hr />
+        </div>
+        <p>To access and modify resources, you can use any HTTP method</p>
+        <ul>
+          <li><code>GET</code></li>
+          <li><code>POST</code> <i>(Admin)</i></li>
+          <li><code>PATCH</code> <i>(Admin)</i></li>
+          <li><code>DELETE</code> <i>(Admin)</i></li>
+        </ul>
+      </div>
+      <br />
+      <div id='instructions'></div>
+      <h3>Open Endpoints</h3>
+      <p>Open endpoints that require no Authentication or Authorization.</p>
 
-          <h3 id="endpoints-that-require-authentication">Endpoints that require Authentication</h3>
-          <p>Closed endpoints that require a valid username and password to be included in the header body of the request.</p>
+      <ul>
+        <li><a href="https://github.com/dionisggr/devmap-api/wiki/Access-Permission">Signup</a>:
+          <code>POST /signup</code></li>
+        <li><a href="https://github.com/dionisggr/devmap-api/wiki/Projects">Show Projects</a>:
+          <code>GET /api/projects</code></li>
+        <li><a href="https://github.com/dionisggr/devmap-api/wiki/Issues">Show Issues</a>: <code>GET /api/issues</code>
+        </li>
+      </ul>
+      <br />
 
+      <h3>Endpoints that require Authentication</h3>
+      <p>Closed endpoints that require a valid username and password to be included in the header body of the request.
+      </p>
+
+      <ul>
+        <li><a href="https://github.com/dionisggr/devmap-api/wiki/Access-Permission">Login</a>: <code>POST /login</code>
           <ul>
-            <li><a href="https://github.com/dionisggr/devmap-api/wiki/Access-Permission">Login</a>: <code>POST /login</code>
+            <li>&#39;Admin&#39; credentials <em>(or you may <a
+                  href="https://devmap.vercel.app/signup">Register</a>)</em>
               <ul>
-                <li>&#39;Admin&#39; credentials <em>(or you may <a href="https://devmap.vercel.app/signup">Register</a>)</em>
-                  <ul>
-                    <li>Username: <code>dionisggr</code></li>
-                    <li>Password: <code>password</code></li>
-                  </ul>
-                </li>
+                <li>Username: <code>dionisggr</code></li>
+                <li>Password: <code>password</code></li>
               </ul>
             </li>
           </ul>
-          <hr>
+        </li>
+      </ul>
+      <br />
 
-          <h3>Endpoints that require Authorization</h3>
-          <p>Closed endpoints that require a valid JSON Web Token to be inlcuded in the header &#39;Authorization&#39; of the request. For &#39;Admin&#39; privileges:</p>
+      <h3>Endpoints that require Authorization</h3>
+      <p>Closed endpoints that require a valid JSON Web Token to be inlcuded in the header &#39;Authorization&#39; of
+        the request. For &#39;Admin&#39; privileges:</p>
 
-          <pre><code>
+      <code class='code-block'>
             // Add to request header
             headers: {'Authorization': 'Bearer my-secret-key'}
-          </code></pre>
+          </code>
 
-          <p>If sending content through request body (<code>POST</code>, <code>PATCH</code>), don&#39;t forget to add the following in the headers:</p>
+      <p>If sending content through request body (<code>POST</code>, <code>PATCH</code>), don&#39;t forget to add the
+        following in the headers:</p>
 
-          <pre><code>
+      <code class='code-block'>
             // Add to request header
             headers: {'Content-Type': 'application/json'}
-          </code></pre>
+          </code>
+      <br />
+      <br />
+      <h4>Project related</h4>
+      <p>Each endpoint manipulates information related to projects.</p>
+      <ul>
+        <li><a href="https://github.com/dionisggr/devmap-api/wiki/Projects">Create a Project</a>:
+          <code>POST /api/projects</code></li>
+        <li><a href="https://github.com/dionisggr/devmap-api/wiki/Projects">Update a Project</a>:
+          <code>PATCH /api/projects/:projectID</code></li>
+        <li><a href="https://github.com/dionisggr/devmap-api/wiki/Projects">Delete a Project</a>:
+          <code>DELETE /api/projects/:projectID</code></li>
+      </ul>
 
-          <h4>Project related</h4>
-          <p>Each endpoint manipulates information related to projects.</p>
-          <ul>
-            <li><a href="https://github.com/dionisggr/devmap-api/wiki/Projects">Create a Project</a>: <code>POST /api/projects</code></li>
-            <li><a href="https://github.com/dionisggr/devmap-api/wiki/Projects">Update a Project</a>: <code>PATCH /api/projects/:projectID</code></li>
-            <li><a href="https://github.com/dionisggr/devmap-api/wiki/Projects">Delete a Project</a>: <code>DELETE /api/projects/:projectID</code></li>
-          </ul>
+      <h4>Issue related</h4>
+      <p>Each endpoint manipulates information related to issues.</p>
+      <ul>
+        <li><a href="https://github.com/dionisggr/devmap-api/wiki/Issues">Create an Issue</a>:
+          <code>POST /api/issues</code></li>
+        <li><a href="https://github.com/dionisggr/devmap-api/wiki/Issues">Update an Issue</a>:
+          <code>PATCH /api/projects/:issueID</code></li>
+        <li><a href="https://github.com/dionisggr/devmap-api/wiki/Issues">Delete an Issue</a>:
+          <code>DELETE /api/projects/:issueID</code></li>
+      </ul>
 
-          <h4>Issue related</h4>
-          <p>Each endpoint manipulates information related to issues.</p>
-          <ul>
-            <li><a href="https://github.com/dionisggr/devmap-api/wiki/Issues">Create an Issue</a>: <code>POST /api/issues</code></li>
-            <li><a href="https://github.com/dionisggr/devmap-api/wiki/Issues">Update an Issue</a>: <code>PATCH /api/projects/:issueID</code></li>
-            <li><a href="https://github.com/dionisggr/devmap-api/wiki/Issues">Delete an Issue</a>: <code>DELETE /api/projects/:issueID</code></li>
-          </ul>
+      <h4>User related</h4>
+      <p>Each endpoint manipulates information related to users.</p>
+      <ul>
+        <li><a href="https://github.com/dionisggr/devmap-api/wiki/Users">Create an User</a>:
+          <code>POST /api/users</code></li>
+        <li><a href="https://github.com/dionisggr/devmap-api/wiki/Users">Update an User</a>:
+          <code>PATCH /api/projects/:userID</code></li>
+        <li><a href="https://github.com/dionisggr/devmap-api/wiki/Users">Delete an User</a>:
+          <code>DELETE /api/projects/:userID</code></li>
+      </ul>
+    </div>
+    <br />
 
-          <h4>User related</h4>
-          <p>Each endpoint manipulates information related to users.</p>
-          <ul>
-            <li><a href="https://github.com/dionisggr/devmap-api/wiki/Users">Create an User</a>: <code>POST /api/users</code></li>
-            <li><a href="https://github.com/dionisggr/devmap-api/wiki/Users">Update an User</a>: <code>PATCH /api/projects/:userID</code></li>
-            <li><a href="https://github.com/dionisggr/devmap-api/wiki/Users">Delete an User</a>: <code>DELETE /api/projects/:userID</code></li>
-          </ul>
-        </div>
+    <h2 style='text-align: center'>GET STARTED:</h2>
+    <div class='landing-page'>
+      <h3 id="render-landing-page">Render Landing Page</h3>
+      <ul>
+        <li><b>URL:</b> <code>/</code></li>
+        <li><b>Method:</b> <code>GET</code></li>
+        <li><b>Auth required:</b> No</li>
+      </ul>
+      <h4 id="success-reponse">Success Reponse</h4>
+      <ul>
+        <li><b>Code:</b> <code>200 OK</code></li>
+        <li><b>Content example</b></li>
         <br />
+        <i>&lt;HTML file&gt;</i>
+      </ul>
+    </div>
+    <div class='access'>
+      <h3 id="login">Login</h3>
+      <ul>
+        <li><b>URL:</b> <code>/login</code></li>
+        <li><b>Method:</b> <code>POST</code></li>
+        <li><b>Auth required:</b> No</li>
+        <li><i>(Authentication)</i></li>
+      </ul>
+      <h4 id="request-body">Request Body</h4>
+      <code>
+        {
+          "username": "username",
+          "password": "password"
+        }
+      </code>
+      <table>
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Type</th>
+            <th>In</th>
+            <th>Description</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><code>username</code></td>
+            <td>string</td>
+            <td>header</td>
+            <td>Unique username</td>
+          </tr>
+          <tr>
+            <td><code>password</code></td>
+            <td>string</td>
+            <td>header</td>
+            <td>User password</td>
+          </tr>
+        </tbody>
+      </table>
+      <h4 id="success-reponse">Success Reponse</h4>
+      <ul>
+        <li><b>Code:</b> <code>200 OK</code></li>
+        <li><b>Content example</b></li>
+      </ul>
+      <code class='code-block'>
+        // If 'Admin'
+        {
+          "apiKey": "my-secret-key",
+          "user": {
+            "id": 1,
+            "username": "username"
+          }
+        }
 
-        <h4>Documentation</h4>
-        <p>View <a href="https://github.com/dionisggr/devmap-api/blob/main/README.md">README</a></p>
+        // If 'User'
+        {
+          "authToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySUQiOjIsImlhdCI6MTYxMDM5NjM0NiwiZXhwIjoxNjEwNDAxNzQ2LCJzdWIiOiJnYWJyaWVscnJtIn0.GSVn7FxPwwV-z6V2vf5ZAboBYaCILwGMXVTLVZ_MplE",
+          "user": {
+            "id": 2,
+            "username": "username"
+          }
+        }
+      </code>
+      <br />
 
-        <br />
-        <br />
-      </div>
-    </main>
-    <footer></footer>
-  </body>
+      <h3 id="refresh-token">Refresh Token</h3>
+      <ul>
+        <li><b>URL:</b> <code>/refresh</code></li>
+        <li><b>Method:</b> <code>GET</code></li>
+        <li><b>Auth required:</b> Yes</li>
+        <ul>
+          <li><code>Bearer my-secret-key</code></li>
+          <li><code>Bearer &lt;JSON Web Token&gt;</code><i>(Generated at Login. See above for instructions)</i></li>
+        </ul>
+      </ul>
+      <h4 id="success-reponse">Success Reponse</h4>
+      <ul>
+        <li><b>Code:</b> <code>200 OK</code></li>
+        <li><b>Content example</b></li>
+      </ul>
+      <code class='code-block'>
+        // If 'Admin'
+        {
+          "authToken": "my-secret-key"
+        }
+
+        // If 'User'
+        {
+          "authToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySUQiOjIsImlhdCI6MTYxMDM5NjM0NiwiZXhwIjoxNjEwNDAxNzQ2LCJzdWIiOiJnYWJyaWVscnJtIn0.GSVn7FxPwwV-z6V2vf5ZAboBYaCILwGMXVTLVZ_MplE"
+        }
+      </code>
+      <br />
+
+      <h3 id="signup">Signup</h3>
+      <ul>
+        <li><b>URL:</b> <code>/api/users</code></li>
+        <li><b>Method:</b> <code>POST</code></li>
+        <li><b>Auth required:</b> Yes</li>
+        <ul>
+          <li><code>Bearer my-secret-key</code></li>
+          <li><code>Bearer &lt;JSON Web Token&gt;</code> <i>(Generated at Login. See above for instructions)</i></li>
+        </ul>
+      </ul>
+      <h4 id="request-body">Request Body</h4>
+      <p><i>Requires <code>headers: {&#39;Content-Type&#39;: &#39;application/json&#39;}</code></i></p>
+      <code class='code-block'>
+        {
+          "username": "username",
+          "password": "password",
+          "firstName": "Name",
+          "lastName": "Last Name",
+          "email": "email@gmail.com",
+          "tools": "Languages/Tools",
+          "github": "github.com/username",
+        }
+      </code>
+      <table>
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Type</th>
+            <th>In</th>
+            <th>Description</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><code>username</code></td>
+            <td>string</td>
+            <td>header</td>
+            <td>Unique username</td>
+          </tr>
+          <tr>
+            <td><code>password</code></td>
+            <td>string</td>
+            <td>header</td>
+            <td>Hashed (bcrypt) password</td>
+          </tr>
+          <tr>
+            <td><code>firstName</code></td>
+            <td>string</td>
+            <td>header</td>
+            <td>First name of user</td>
+          </tr>
+          <tr>
+            <td><code>lastName</code></td>
+            <td>string</td>
+            <td>header</td>
+            <td>Last name of user</td>
+          </tr>
+          <tr>
+            <td><code>email</code></td>
+            <td>string</td>
+            <td>header</td>
+            <td>User email</td>
+          </tr>
+          <tr>
+            <td><code>tools</code></td>
+            <td>string</td>
+            <td>header</td>
+            <td>Languages/Tools used</td>
+          </tr>
+          <tr>
+            <td><code>github</code></td>
+            <td>string</td>
+            <td>header</td>
+            <td>GitHub Profile</td>
+          </tr>
+        </tbody>
+      </table>
+      <h4 id="success-reponse">Success Reponse</h4>
+      <ul>
+        <li><b>Code:</b> <code>201 Created</code></li>
+        <li><b>Content example</b></li>
+      </ul>
+      <code class='code-block'>
+        [
+          {
+            "id": "1",
+            "username": "username",
+            "password": "password",
+            "firstName": "Name",
+            "lastName": "Last Name",
+            "email": "email@gmail.com",
+            "tools": "Languages/Tools",
+            "github": "github.com/username",
+            "role": "User"
+          },
+
+          ...
+        ]
+      </code>
+    </div>
+
+    <br />
+    
+    <div class='projects'>
+      <h3 id="get-projects">Get Projects</h3>
+      <ul>
+        <li><b>URL:</b> <code>/api/projects</code></li>
+        <li><b>Method:</b> <code>GET</code></li>
+        <li><b>Auth required:</b> No</li>
+      </ul>
+      <h4 id="success-reponse">Success Reponse</h4>
+      <ul>
+        <li><b>Code:</b> <code>200 OK</code></li>
+        <li><b>Content example</b></li>
+      </ul>
+      <code class='code-block'>
+        [
+          {
+            "id": "1",
+            "name": "Project 1",
+            "description": "First description",
+            "tools": "HTML/CSS",
+            "phase": "Design",
+            "status": "Delayed",
+            "owner": "username",
+            "startDate": "Tue Dec 22 2020 00:00:00 GMT-0700",
+            "collaboration": true,
+            "github": "github.com/username/project"
+          },
+      
+          ...
+        ]
+      </code>
+      <br />
+      <h3 id="add-project">Add Project</h3>
+      <ul>
+        <li><b>URL:</b> <code>/api/projects</code></li>
+        <li><b>Method:</b> <code>POST</code></li>
+        <li><b>Auth required:</b> Yes</li>
+        <ul>
+          <li><code>Bearer my-secret-key</code></li>
+          <li><code>Bearer &lt;JSON Web Token&gt;</code> <i>(Generated at Login. See above for instructions)</i></li>
+        </ul>
+      </ul>
+      <h4 id="request-body">Request Body</h4>
+      <p><i>Requires <code>headers: {&#39;Content-Type&#39;: &#39;application/json&#39;}</code></i></p>
+      <code class='code-block'>
+        {
+          "name": "Project 1",
+          "description": "First description",
+          "tools": "HTML/CSS",
+          "phase": "Design",
+          "status": "Delayed",
+          "owner": "username",
+          "startDate": "12/22/2020",
+          "collaboration": true,
+          "github": "github.com/username/project"
+        }
+      </code>
+      <table>
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Type</th>
+            <th>In</th>
+            <th>Description</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><code>name</code></td>
+            <td>string</td>
+            <td>header</td>
+            <td>Name of project</td>
+          </tr>
+          <tr>
+            <td><code>description</code></td>
+            <td>string</td>
+            <td>header</td>
+            <td>Description of project</td>
+          </tr>
+          <tr>
+            <td><code>tools</code></td>
+            <td>string</td>
+            <td>header</td>
+            <td>Languages/Tools required</td>
+          </tr>
+          <tr>
+            <td><code>phase</code></td>
+            <td>string</td>
+            <td>header</td>
+            <td>Project Phase</td>
+          </tr>
+          <tr>
+            <td><code>status</code></td>
+            <td>string</td>
+            <td>header</td>
+            <td>Project Phase status</td>
+          </tr>
+          <tr>
+            <td><code>owner</code></td>
+            <td>string</td>
+            <td>header</td>
+            <td>Creator of project</td>
+          </tr>
+          <tr>
+            <td><code>startDate</code></td>
+            <td>string</td>
+            <td>header</td>
+            <td>Date created</td>
+          </tr>
+          <tr>
+            <td><code>collaboration</code></td>
+            <td>boolean</td>
+            <td>header</td>
+            <td>Accepts collaboration</td>
+          </tr>
+          <tr>
+            <td><code>github</code></td>
+            <td>string</td>
+            <td>header</td>
+            <td>GitHub project link</td>
+          </tr>
+        </tbody>
+      </table>
+      <h4 id="success-reponse">Success Reponse</h4>
+      <ul>
+        <li><b>Code:</b> <code>201 Created</code></li>
+        <li><b>Content example</b></li>
+      </ul>
+      <code class='code-block'>
+        {
+          "id": "1",
+          "name": "Project 1",
+          "description": "First description",
+          "tools": "HTML/CSS",
+          "phase": "Design",
+          "status": "Delayed",
+          "owner": "username",
+          "startDate": "Tue Dec 22 2020 00:00:00 GMT-0700",
+          "collaboration": true,
+          "github": "github.com/username/project"
+        }
+      </code>
+      <br />
+      <h3 id="edit-project">Edit Project</h3>
+      <ul>
+        <li><b>URL:</b> <code>/api/projects/:projectID</code></li>
+        <li><b>Method:</b> <code>PATCH</code></li>
+        <li><b>Auth required:</b> Yes</li>
+        <ul>
+          <li><code>Bearer my-secret-key</code></li>
+          <li><code>Bearer &lt;JSON Web Token&gt;</code> <i>(Generated at Login. See above for instructions)</i></li>
+        </ul>
+      </ul>
+      <h4 id="request-body">Request Body</h4>
+      <p><i>Requires <code>headers: {&#39;Content-Type&#39;: &#39;application/json&#39;}</code></i></p>
+      <code class='code-block'>
+        {
+          "name": "New Name",
+          "description": "New Description",
+          "tools": "HTML/CSS",
+          "phase": "Design",
+          "status": "Delayed",
+          "owner": "username",
+          "startDate": "12/22/2020",
+          "collaboration": true,
+          "github": "github.com/username/project"
+        }
+      </code>
+      <table>
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Type</th>
+            <th>In</th>
+            <th>Description</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><code>projectID</code></td>
+            <td>integer</td>
+            <td>path</td>
+            <td>Project ID (Primary Key)</td>
+          </tr>
+          <tr>
+            <td><code>name</code></td>
+            <td>string</td>
+            <td>header</td>
+            <td>Name of project</td>
+          </tr>
+          <tr>
+            <td><code>description</code></td>
+            <td>string</td>
+            <td>header</td>
+            <td>Description of project</td>
+          </tr>
+          <tr>
+            <td><code>tools</code></td>
+            <td>string</td>
+            <td>header</td>
+            <td>Languages/Tools required</td>
+          </tr>
+          <tr>
+            <td><code>phase</code></td>
+            <td>string</td>
+            <td>header</td>
+            <td>Project Phase</td>
+          </tr>
+          <tr>
+            <td><code>status</code></td>
+            <td>string</td>
+            <td>header</td>
+            <td>Project Phase status</td>
+          </tr>
+          <tr>
+            <td><code>owner</code></td>
+            <td>string</td>
+            <td>header</td>
+            <td>Creator of project</td>
+          </tr>
+          <tr>
+            <td><code>startDate</code></td>
+            <td>string</td>
+            <td>header</td>
+            <td>Date created</td>
+          </tr>
+          <tr>
+            <td><code>collaboration</code></td>
+            <td>boolean</td>
+            <td>header</td>
+            <td>Accepts collaboration</td>
+          </tr>
+          <tr>
+            <td><code>github</code></td>
+            <td>string</td>
+            <td>header</td>
+            <td>GitHub project link</td>
+          </tr>
+        </tbody>
+      </table>
+      <h4 id="success-reponse">Success Reponse</h4>
+      <ul>
+        <li><b>Code:</b> <code>201 Created</code> <i>(Resource updated successfully, and refreshes.)</i></li>
+        <li>Content example</i>
+      </ul>
+      <code class='code-block'>
+        {
+          "id": "1",
+          "name": "New Name",
+          "description": "New Description",
+          "tools": "HTML/CSS",
+          "phase": "Design",
+          "status": "Delayed",
+          "owner": "username",
+          "startDate": "Tue Dec 22 2020 00:00:00 GMT-0700",
+          "collaboration": true,
+          "github": "github.com/username/project"
+        }
+      </code>
+      <h4 id="notes">Notes</h4>
+      <p>All values will be necessary in Update due to previous empty field validation</p>
+      <br /><br />
+      <h3 id="delete-project">Delete Project</h3>
+      <ul>
+        <li><b>URL:</b> <code>/api/projects/:projectID</code></li>
+        <li><b>Method:</b> <code>DELETE</code></li>
+        <li><b>Auth required:</b> Yes</li>
+        <ul>
+          <li><code>Bearer my-secret-key</code></li>
+          <li><code>Bearer &lt;JSON Web Token&gt;</code> <i>(Generated at Login. See above for instructions)</i></li>
+        </ul>
+      </ul>
+      <table>
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Type</th>
+            <th>In</th>
+            <th>Description</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><code>projectID</code></td>
+            <td>integer</td>
+            <td>path</td>
+            <td>Project ID (Primary Key)</td>
+          </tr>
+        </tbody>
+      </table>
+      <h4 id="success-reponse">Success Reponse</h4>
+      <ul>
+        <li><b>Code:</b> <code>301 Moved Permanently</code></li>
+        <li>Content example</i>
+      </ul>
+      <p>&lt;<i>No Content</i>&gt;</p>
+    </div>
+    <br /><br />
+    <div class='issues'>
+      <h3 id="get-issues">Get Issues</h3>
+      <ul>
+        <li><b>URL:</b> <code>/api/issues</code><br></li>
+        <li><b>Method:</b> <code>GET</code><br></li>
+        <li><b>Auth required:</b> No</li>
+      </ul>
+      <h4 id="success-reponse">Success Reponse</h4>
+      <ul>
+        <li><b>Code:</b> <code>200 OK</code></li>
+        <li>Content example</i>
+      </ul>
+      <code class='code-block'>
+        [
+          {
+            "id": "1",
+            "name": "Project 1",
+            "description": "First description",
+            "tools": "HTML/CSS",
+            "phase": "Design",
+            "status": "Delayed",
+            "owner": "username",
+            "startDate": "Tue Dec 22 2020 00:00:00 GMT-0700",
+            "collaboration": true,
+            "github": "github.com/username/project",
+            "projectID": "1"
+          },
+      
+          ...
+        ]
+      </code>
+      <br />
+      <h3 id="add-issue">Add Issue</h3>
+      <ul>
+        <li><b>URL:</b> <code>/api/issues</code><br></li>
+        <li><b>Method:</b> <code>POST</code><br></li>
+        <li><b>Auth required:</b> Yes</li>
+        <ul>
+          <li><code>Bearer my-secret-key</code></li>
+          <li><code>Bearer &lt;JSON Web Token&gt;</code> <i>(Generated at Login. See above for instructions)</i></li>
+        </ul>
+      </ul>
+      <h4 id="request-body">Request Body</h4>
+      <p><i>Requires <code>headers: {&#39;Content-Type&#39;: &#39;application/json&#39;}</code></i></p>
+      <code class='code-block'>
+        {
+          "name": "Issue 1",
+          "description": "First description",
+          "tools": "HTML/CSS",
+          "phase": "Design",
+          "status": "Delayed",
+          "owner": "username",
+          "startDate": "12/22/2020",
+          "collaboration": true,
+          "github": "github.com/username/project",
+          "projectID": "1"
+        }
+      </code>
+      <table>
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Type</th>
+            <th>In</th>
+            <th>Description</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><code>name</code></td>
+            <td>string</td>
+            <td>header</td>
+            <td>Name of project</td>
+          </tr>
+          <tr>
+            <td><code>description</code></td>
+            <td>string</td>
+            <td>header</td>
+            <td>Description of project</td>
+          </tr>
+          <tr>
+            <td><code>tools</code></td>
+            <td>string</td>
+            <td>header</td>
+            <td>Languages/Tools required</td>
+          </tr>
+          <tr>
+            <td><code>phase</code></td>
+            <td>string</td>
+            <td>header</td>
+            <td>Project Phase</td>
+          </tr>
+          <tr>
+            <td><code>status</code></td>
+            <td>string</td>
+            <td>header</td>
+            <td>Project Phase status</td>
+          </tr>
+          <tr>
+            <td><code>owner</code></td>
+            <td>string</td>
+            <td>header</td>
+            <td>Creator of project</td>
+          </tr>
+          <tr>
+            <td><code>startDate</code></td>
+            <td>string</td>
+            <td>header</td>
+            <td>Date created</td>
+          </tr>
+          <tr>
+            <td><code>collaboration</code></td>
+            <td>boolean</td>
+            <td>header</td>
+            <td>Accepts collaboration</td>
+          </tr>
+          <tr>
+            <td><code>github</code></td>
+            <td>string</td>
+            <td>header</td>
+            <td>GitHub project link</td>
+          </tr>
+          <tr>
+            <td><code>projectID</code></td>
+            <td>integer</td>
+            <td>header</td>
+            <td>Project ID (Primary Key)</td>
+          </tr>
+        </tbody>
+      </table>
+      <h4 id="success-reponse">Success Reponse</h4>
+      <ul>
+        <li><b>Code:</b> <code>201 Created</code></li>
+        <li>Content example</i>
+      </ul>
+      <code class='code-block'>
+        [
+          {
+            "id": "1",
+            "name": "Issue 1",
+            "description": "First description",
+            "tools": "HTML/CSS",
+            "phase": "Design",
+            "status": "Delayed",
+            "owner": "username",
+            "startDate": "Tue Dec 22 2020 00:00:00 GMT-0700",
+            "collaboration": true,
+            "github": "github.com/username/project",
+            "projectID": "1"
+          },
+      
+          ...
+        ]
+      </code>
+      <br />
+      <h3 id="edit-issue">Edit Issue</h3>
+      <ul>
+        <li><b>URL:</b> <code>/api/issue/:issueID</code></li>
+        <li><b>Method:</b> <code>PATCH</code><br></li>
+        <li><b>Auth required:</b> Yes</li>
+        <ul>
+          <li><code>Bearer my-secret-key</code></li>
+          <li><code>Bearer &lt;JSON Web Token&gt;</code> <i>(Generated at Login. See above for instructions)</i></li>
+        </ul>
+      </ul>
+      <h4 id="request-body">Request Body</h4>
+      <p><i>Requires <code>headers: {&#39;Content-Type&#39;: &#39;application/json&#39;}</code></i></p>
+      <code class='code-block'>
+        {
+          "name": "New Name",
+          "description": "New Description",
+          "tools": "HTML/CSS",
+          "phase": "Design",
+          "status": "Delayed",
+          "owner": "username",
+          "startDate": "12/22/2020",
+          "collaboration": true,
+          "github": "github.com/username/project",
+          "projectID": "1"
+        }
+      </code>
+      <table>
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Type</th>
+            <th>In</th>
+            <th>Description</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><code>issueID</code></td>
+            <td>integer</td>
+            <td>path</td>
+            <td>Issue ID (Primary Key)</td>
+          </tr>
+          <tr>
+            <td><code>projectID</code></td>
+            <td>integer</td>
+            <td>header</td>
+            <td>Project ID (Primary Key)</td>
+          </tr>
+          <tr>
+            <td><code>name</code></td>
+            <td>string</td>
+            <td>header</td>
+            <td>Name of project</td>
+          </tr>
+          <tr>
+            <td><code>description</code></td>
+            <td>string</td>
+            <td>header</td>
+            <td>Description of project</td>
+          </tr>
+          <tr>
+            <td><code>tools</code></td>
+            <td>string</td>
+            <td>header</td>
+            <td>Languages/Tools required</td>
+          </tr>
+          <tr>
+            <td><code>phase</code></td>
+            <td>string</td>
+            <td>header</td>
+            <td>Project Phase</td>
+          </tr>
+          <tr>
+            <td><code>status</code></td>
+            <td>string</td>
+            <td>header</td>
+            <td>Project Phase status</td>
+          </tr>
+          <tr>
+            <td><code>owner</code></td>
+            <td>string</td>
+            <td>header</td>
+            <td>Creator of project</td>
+          </tr>
+          <tr>
+            <td><code>startDate</code></td>
+            <td>string</td>
+            <td>header</td>
+            <td>Date created</td>
+          </tr>
+          <tr>
+            <td><code>collaboration</code></td>
+            <td>boolean</td>
+            <td>header</td>
+            <td>Accepts collaboration</td>
+          </tr>
+          <tr>
+            <td><code>github</code></td>
+            <td>string</td>
+            <td>header</td>
+            <td>GitHub project link</td>
+          </tr>
+        </tbody>
+      </table>
+      <h4 id="success-reponse">Success Reponse</h4>
+      <ul>
+        <li><b>Code:</b> <code>201 Created</code> <i>(Resource updated successfully, and refreshes.)</i></li>
+        <li>Content example</i>
+      </ul>
+      <code class='code-block'>
+        [
+          {
+            "id": "1",
+            "name": "New Name",
+            "description": "New Description",
+            "tools": "HTML/CSS",
+            "phase": "Design",
+            "status": "Delayed",
+            "owner": "username",
+            "startDate": "Tue Dec 22 2020 00:00:00 GMT-0700",
+            "collaboration": true,
+            "github": "github.com/username/project",
+            "projectID": "1"
+          },
+      
+          ...
+        ]
+      </code>
+      <h4 id="notes">Notes</h4>
+      <p>All values will be necessary in Update due to previous empty field validation</p>
+      <br /><br />
+
+      <h3 id="delete-issue">Delete Issue</h3>
+      <ul>
+        <li><b>URL:</b> <code>/api/issues/:issueID</code><br></li>
+        <li><b>Method:</b> <code>DELETE</code><br></li>
+        <li><b>Auth required:</b> Yes</li>
+        <ul>
+          <li><code>Bearer my-secret-key</code></li>
+          <li><code>Bearer &lt;JSON Web Token&gt;</code> <i>(Generated at Login. See above for instructions)</i></li>
+        </ul>
+      </ul>
+      <table>
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Type</th>
+            <th>In</th>
+            <th>Description</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><code>issueID</code></td>
+            <td>integer</td>
+            <td>path</td>
+            <td>Project ID (Primary Key)</td>
+          </tr>
+        </tbody>
+      </table>
+      <h4 id="success-reponse">Success Reponse</h4>
+      <ul>
+        <li><b>Code:</b> <code>301 Moved Permanently</code></li>
+        <li>Content example</i>
+      </ul>
+      <p>&lt;<i>No Content</i>&gt;</p>
+    </div>
+    <br /><br />
+    <div class='users'>
+      <h3 id="get-users">Get Users</h3>
+      <ul>
+        <li><b>URL:</b> <code>/api/users</code><br></li>
+        <li><b>Method:</b> <code>GET</code><br></li>
+        <li><b>Auth required:</b> Yes</li>
+        <ul>
+          <li><code>Bearer my-secret-key</code></li>
+          <li><code>Bearer &lt;JSON Web Token&gt;</code> <i>(Generated at Login. See above for instructions)d</i></li>
+        </ul>
+      </ul>
+      <h4 id="success-reponse">Success Reponse</h4>
+      <ul>
+        <li><b>Code:</b> <code>200 OK</code></li>
+        <li>Content example</i>
+      </ul>
+      <code class='code-block'>
+        [
+          {
+            "id": "1",
+            "username": "username",
+            "firstName": "Name",
+            "lastName": "Last Name",
+            "email": "email@gmail.com",
+            "tools": "Languages/Tools",
+            "startDate": "Wed Dec 23 2020 00:00:00 GMT-0700",
+            "github": "github.com/username",
+            "role": "User"
+          },
+      
+          ...
+        ]
+      </code>
+      <br />
+
+      <h3 id="add-user-signup-">Add User <i>(Signup)</i></h3>
+      <ul>
+        <li><b>URL:</b> <code>/api/users</code><br></li>
+        <li><b>Method:</b> <code>POST</code><br></li>
+        <li><b>Auth required:</b> Yes</li>
+        <ul>
+          <li><code>Bearer my-secret-key</code></li>
+          <li><code>Bearer &lt;JSON Web Token&gt;</code> <i>(Generated at Login. See above for instructions)d</i></li>
+        </ul>
+      </ul>
+      <h4 id="request-body">Request Body</h4>
+      <p><i>Requires <code>headers: {&#39;Content-Type&#39;: &#39;application/json&#39;}</code>d</i></p>
+      <code class='code-block'>
+        {
+          "username": "username",
+          "password": "password",
+          "firstName": "Name",
+          "lastName": "Last Name",
+          "email": "email@gmail.com",
+          "tools": "Languages/Tools",
+          "github": "github.com/username",
+        }
+      </code>
+      <table>
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Type</th>
+            <th>In</th>
+            <th>Description</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><code>username</code></td>
+            <td>string</td>
+            <td>header</td>
+            <td>Unique username</td>
+          </tr>
+          <tr>
+            <td><code>password</code></td>
+            <td>string</td>
+            <td>header</td>
+            <td>Hashed (bcrypt) password</td>
+          </tr>
+          <tr>
+            <td><code>firstName</code></td>
+            <td>string</td>
+            <td>header</td>
+            <td>First name of user</td>
+          </tr>
+          <tr>
+            <td><code>lastName</code></td>
+            <td>string</td>
+            <td>header</td>
+            <td>Last name of user</td>
+          </tr>
+          <tr>
+            <td><code>email</code></td>
+            <td>string</td>
+            <td>header</td>
+            <td>User email</td>
+          </tr>
+          <tr>
+            <td><code>tools</code></td>
+            <td>string</td>
+            <td>header</td>
+            <td>Languages/Tools used</td>
+          </tr>
+          <tr>
+            <td><code>github</code></td>
+            <td>string</td>
+            <td>header</td>
+            <td>GitHub Profile</td>
+          </tr>
+        </tbody>
+      </table>
+      <h4 id="success-reponse">Success Reponse</h4>
+      <ul>
+        <li><b>Code:</b> <code>201 Created</code></li>
+        <li>Content example</i>
+      </ul>
+      <code class='code-block'>
+        [
+          {
+            "id": "1",
+            "username": "username",
+            "password": "password",
+            "firstName": "Name",
+            "lastName": "Last Name",
+            "email": "email@gmail.com",
+            "tools": "Languages/Tools",
+            "github": "github.com/username",
+            "role": "User"
+          },
+      
+          ...
+        ]
+      </code>
+      <br />
+      <h3 id="edit-user">Edit User</h3>
+      <ul>
+        <li><b>URL:</b> <code>/users/:userID</code><br></li>
+        <li><b>Method:</b> <code>PATCH</code><br></li>
+        <li><b>Auth required:</b> Yes</li>
+        <ul>
+          <li><code>Bearer my-secret-key</code></li>
+          <li><code>Bearer &lt;JSON Web Token&gt;</code> <i>(Generated at Login. See above for instructions)d</i></li>
+        </ul>
+      </ul>
+      <h4 id="request-body">Request Body</h4>
+      <p><i>Requires <code>headers: {&#39;Content-Type&#39;: &#39;application/json&#39;}</code>d</i></p>
+      <code class='code-block'>
+        {
+          "username": "newUserName",
+          "firstName": "Name",
+          "lastName": "Last Name",
+          "email": "newEmail@gmail.com",
+          "tools": "Updated Tools",
+          "startDate": "12/23/2020",
+          "github": "github.com/username",
+        }
+      </code>
+      <table>
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Type</th>
+            <th>In</th>
+            <th>Description</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><code>userID</code></td>
+            <td>integer</td>
+            <td>path</td>
+            <td>User ID (Primary Key)</td>
+          </tr>
+          <tr>
+            <td><code>username</code></td>
+            <td>string</td>
+            <td>header</td>
+            <td>Unique username</td>
+          </tr>
+          <tr>
+            <td><code>firstName</code></td>
+            <td>string</td>
+            <td>header</td>
+            <td>First name of user</td>
+          </tr>
+          <tr>
+            <td><code>lastName</code></td>
+            <td>string</td>
+            <td>header</td>
+            <td>Last name of user</td>
+          </tr>
+          <tr>
+            <td><code>email</code></td>
+            <td>string</td>
+            <td>header</td>
+            <td>User email</td>
+          </tr>
+          <tr>
+            <td><code>tools</code></td>
+            <td>string</td>
+            <td>header</td>
+            <td>Languages/Tools used</td>
+          </tr>
+          <tr>
+            <td><code>startDate</code></td>
+            <td>string</td>
+            <td>header</td>
+            <td>Date created</td>
+          </tr>
+          <tr>
+            <td><code>github</code></td>
+            <td>string</td>
+            <td>header</td>
+            <td>GitHub Profile</td>
+          </tr>
+        </tbody>
+      </table>
+      <h4 id="success-reponse">Success Reponse</h4>
+      <ul>
+        <li><b>Code:</b> <code>201 Created</code> <i>(Resource updated successfully, and refreshes.)d</i></li>
+        <li>Content example</i>
+      </ul>
+      <code class='code-block'>
+        [
+          {
+            "id": "1",
+            "username": "newUserName",
+            "firstName": "Name",
+            "lastName": "Last Name",
+            "email": "newEmail@gmail.com",
+            "tools": "Updated Tools",
+            "startDate": "Wed Dec 23 2020 00:00:00 GMT-0700",
+            "github": "github.com/username",
+            "role": "User"
+          },
+      
+          ...
+        ]
+      </code>
+      <h4 id="notes">Notes</h4>
+      <p>All values will be necessary in Update due to previous empty field validation</p>
+      <br />
+
+      <h3 id="delete-user">Delete User</h3>
+      <ul>
+        <li><b>URL:</b> <code>/users/:userID</code><br></li>
+        <li><b>Method:</b> <code>DELETE</code><br></li>
+        <li><b>Auth required:</b> Yes</li>
+        <ul>
+          <li><code>Bearer my-secret-key</code></li>
+          <li><code>Bearer &lt;JSON Web Token&gt;</code> <i>(Generated at Login. See above for instructions)d</i></li>
+        </ul>
+      </ul>
+      <table>
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Type</th>
+            <th>In</th>
+            <th>Description</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><code>userID</code></td>
+            <td>integer</td>
+            <td>path</td>
+            <td>User ID (Primary Key)</td>
+          </tr>
+        </tbody>
+      </table>
+      <h4 id="success-reponse">Success Reponse</h4>
+      <ul>
+        <li><b>Code:</b> <code>301 Moved Permanently</code></li>
+        <li>Content example</i>
+      </ul>
+      <p>&lt;<i>No Content</i>&gt;</p>
+    </div>
+    <h4>More Info</h4>
+    <p>View <a href="https://github.com/dionisggr/devmap-api/blob/main/README.md">README</a></p>
+    <br />
+    <br />
+    </div>
+  </main>
+  <footer></footer>
+</body>
+
 </html>
