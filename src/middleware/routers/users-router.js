@@ -39,10 +39,6 @@ UsersRouter.route('/api/users')
       last_name: xss(lastName), email: xss(email), 
       tools: xss(tools), github: xss(github), password: xss(password)
     };
-    Object.entries(newUser).forEach(([key, value]) => {
-      if (key === 'tools' || key === 'github' || key === 'start_date') return;
-      if (!value) next({message: 'Missing values.'});
-    });
     bcrypt.hash(newUser.password, 8)
       .then(password => {
         newUser.password = password;
@@ -60,6 +56,7 @@ UsersRouter.route('/api/users')
             return res.redirect(307, '/login');
           })
           .catch(error => {
+            console.log(error);
             error = error.detail.split('Key ')[1];
             return res.status(401).send({ error });
           });
