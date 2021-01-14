@@ -30,7 +30,7 @@ ProjectsRouter.route('/api/projects')
           return project;
         });
         return res.json(projects);
-      });
+      })
   })
   .post(authorization, (req, res, next) => {
     const {
