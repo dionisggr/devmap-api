@@ -15,7 +15,7 @@
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Heroku
 
 ### Languages/Tools
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Javascript, Node.js, Express.js, Knex.js, PostgreSQL, Mocha, Chai, Supertest, Nodemon, Postgrator, JSON Web Tokens, Bcrypt, HTML5, CI scripts
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Javascript, Node.js, Express.js, Knex.js, PostgreSQL, Mocha, Chai, Supertest, Nodemon, Postgrator, Dotenv, JSON Web Tokens, Bcrypt, HTML5, CI scripts
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**Loggers:** Morgan, Winston \
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**Securities:** XSS, CORS, Helmet
