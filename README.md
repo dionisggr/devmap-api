@@ -9,9 +9,12 @@ The client-side may be found at: https://devmap.vercel.app/. \
 *(CSS still a work-in-progress)*
 
 ## API Landing Page:
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;https://afternoon-dawn-05389.herokuapp.com/
-### Client-Side
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;https://devmap.vercel.app/
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; https://afternoon-dawn-05389.herokuapp.com/
+### Client
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; https://devmap.vercel.app/
+
+### Client GitHub:
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; https://github.com/dionisggr/devmap
 
 ### Deployment Platform:
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Heroku
