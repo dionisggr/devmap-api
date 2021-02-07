@@ -1,7 +1,7 @@
 # DevMap API
 A simple API for the DevMap App for all HTTP-related requests.
 
-This (still in-progress) app allows software development teams to manage life-cycles, monitor deadlines, and update details specific details for software development projects, features and bugs. In future scope, it pretends to add project discussion forum, team collaboration and fine detail management for projects and issues for further customization.
+The following API allows software development teams to manage life-cycles, monitor deadlines, and update details specific details for software development projects, features and bugs. In future scope, it pretends to add project discussion forum, team collaboration and fine detail management for projects and issues for further customization.
 
 This API stop represents a way for you to communicate with our server to organize your own projects and folder at your own client. Please read the instructions for more information.
 
