@@ -5,13 +5,12 @@ The following API allows software development teams to manage life-cycles, monit
 
 This API stop represents a way for you to communicate with our server to organize your own projects and folder at your own client. Please read the instructions for more information.
 
-The client-side may be found at: https://devmap.vercel.app/. \
-*(CSS still a work-in-progress)*
-
 ## API Landing Page:
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; https://afternoon-dawn-05389.herokuapp.com/
-### Client
+
+### Client Live
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; https://devmap.vercel.app/
+*(CSS still a work-in-progress)*
 
 ### Client GitHub:
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; https://github.com/dionisggr/devmap
@@ -20,7 +19,7 @@ The client-side may be found at: https://devmap.vercel.app/. \
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Heroku
 
 ### Languages/Tools
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Javascript, Node.js, Express.js, Knex.js, PostgreSQL, Mocha, Chai, Supertest, Nodemon, Postgrator, Dotenv, JSON Web Tokens, Bcrypt, HTML5, CI scripts
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Javascript, Node.js, Express.js, Knex.js, PostgreSQL, Mocha, Chai, Supertest, Nodemon, Postgrator, Dotenv, JSON Web Tokens, Bcrypt, HTML5, CI scripts
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**Loggers:** Morgan, Winston \
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**Securities:** XSS, CORS, Helmet
@@ -82,21 +81,21 @@ Each endpoint manipulates information related to users.
 ### Local Set-Up
 Complete the following steps to clone a local copy of the server:
 
-1. Clone this repository to your local machine `git clone REPO-URL NEW-PROJECT-NAME`
-2. `cd` into the cloned repository
-3. Make a fresh start of the git history for this project with `rm -rf .git && git init`
-4. Install the node dependencies `npm install`
-5. Move the `example.env` Environment file to `.env`, which will be ignored by git but read by the express server: `mv example.env .env`
-6. If you changed the project name, edit the contents of the `package.json` to use NEW-PROJECT-NAME
+1. Clone this repository to your local machine `git clone REPO-URL NEW-PROJECT-NAME`.
+2. `cd` into the cloned repository.
+3. Make a fresh start of the git history for this project with `rm -rf .git && git init`.
+4. Install the node dependencies `npm install`.
+5. Move the `example.env` environment file to `.env`, which will be ignored by git .but read by the express server: `mv example.env .env`.
+6. If you changed the project name, edit the contents of the `package.json` to use NEW-PROJECT-NAME.
 
 ### Scripts
-1. Start a database server with `pg_ctl start`
-2. Create an user with Superuser permission, with `createuser -sPE admin` (if different name, make sure to update it in `.env`, `config.js`, `postgrator-config.js` files)
-3. Create a database with any name, ideally `devmap` (if different name, make sure to update it in `.env`, `config.js`, `postgrator-config.js` files)
-4. Run 'postgrator' with `npm run migrate` to migrate the tables to highest available version
+1. Start a database server with `pg_ctl start`.
+2. Create an user with Superuser permission, with `createuser -sPE admin` (if different name, make sure to update it in `.env`, `config.js`, `postgrator-config.js` files).
+3. Create a database with any name, ideally `devmap` (if different name, make sure to update it in `.env`, `config.js`, `postgrator-config.js` files).
+4. Run 'postgrator' with `npm run migrate` to migrate the tables to highest available version. To migrate tables to the lowest version, use `npm run migrate -- 0`.
 5. Seed the tables with `psql -U admin -d devmap -f ./seeds/seed.devmap.sql` with preset data.
-6. Start the application `npm start`; tests will run automatically
-7. Alternatively, you may start the application with nodemon `npm run dev`; tests will not run unless manually set to
+6. Start the application `npm start`. Tests will run automatically.
+7. Alternatively, you may start the application with nodemon `npm run dev`; tests will not run unless manually set to.
 
 ---
 
