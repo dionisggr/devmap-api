@@ -1,1 +1,1 @@
-DROP TABLE IF EXISTS issues, projects, users;
+DROP TABLE IF EXISTS project_tools, user_tools, tools, issues, projects, users;
