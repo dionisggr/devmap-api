@@ -1,144 +1,146 @@
 const express = require('express');
 const bcrypt = require('bcryptjs');
 const xss = require('xss');
-const { authorization } = require('../../helpers/validation');
-const UsersService = require('../../services/users-service');
+const { authorization } = require('../middleware/validation');
+const UsersService = require('../services/users-service');
 
 const UsersRouter = express.Router();
 
 UsersRouter.route('/api/users')
-  .get(authorization, (req, res) => {
+  .get(authorization, async (req, res, next) => {
     const db = req.app.get('db');
-    UsersService.getUsers(db)
-      .then(users => {
-        users = users.map(user => {
-          user.id = user.user_id.toString();
-          user.startDate = user.start_date;
-          user = {
-            id: user.id, username: xss(user.username), firstName: xss(user.first_name),
-            lastName: xss(user.last_name), email: xss(user.email), 
-            tools: xss(user.tools), startDate: xss(user.startDate),
-            github: xss(user.github), role: xss(user.role)
-          };
-          delete user.user_id;
-          delete user.start_date;
-          return user;
-        });
-        return res.json(users);
-      })
-      .catch(error => next({ error }));
+
+    const users = await UsersService.getUsers(db)
+      .catch(next);
+    
+    users.forEach(user => delete user.password);
+
+    return res.json(users);
   })
-  .post((req, res, next) => {
+  .post(async (req, res, next) => {
     const db = req.app.get('db');
     const {
-      username, firstName, lastName, email, 
-      tools, github, password
-    } = req.body;
-    const newUser = {
-      username: xss(username), first_name: xss(firstName),
-      last_name: xss(lastName), email: xss(email), 
-      tools: xss(tools), github: xss(github), password: xss(password)
+      username, first_name, last_name,
+      email, github, password } = req.body;
+    
+    const user = {
+      username, first_name, last_name,
+      email, github, password
     };
-    bcrypt.hash(newUser.password, 8)
-      .then(password => {
-        newUser.password = password;
-        UsersService.addUser(db, newUser)
-          .then(user => {
-            req.body.username = xss(user.username);
-            req.body.password = xss(user.password);
-            user = {
-              id: user.user_id, username: req.username, firstName: xss(user.first_name),
-              lastName: xss(user.last_name), email: xss(user.email), 
-              tools: xss(user.tools), startDate: xss(user.start_date),
-              github: xss(user.github), role: xss(user.role)
-            };
-            delete user.password;
-            return res.redirect(307, '/login');
-          })
-          .catch(error => {
-            error = error.detail.split('Key ')[1];
-            return res.status(401).send({ error });
-          });
-      })
-      .catch(error => next({ error }));
 
+    for (const [key, value] of Object.entries(user)) {
+      if (key !== 'github' && !value) {
+        return res.status(400).send({ error: 'Missing values.' });
+      }
+      
+      if (typeof value === 'string') {
+        user[key] = xss(value);
+      };
+    };
+
+    user.password = bcrypt.hash(user.password, 8)
+      .catch(next);
+    
+    const newUser = await UsersService.addUser(db, user)
+      .catch(next);
+    
+    req.body.username = newUser.username;
+    req.body.password = newUser.password;
+
+    return res.redirect(307, '/login');
   });
 
-UsersRouter.route('/api/users/:userID')
-  .all(authorization, (req, res, next) => {
+
+UsersRouter.route('/api/users/:id')
+  .all(authorization, async (req, res, next) => {
     const db = req.app.get('db');
-    res.id = req.params.userID;
-    UsersService.getById(db, res.id)
-      .then(user => {
-        if (!user) next({message: 'Invalid data.'});
-        res.user = user;
-        next();
-      })
-      .catch(error => next({ error }));
+    const user_id = req.params.id;
+
+    const user = await UsersService.getById(db, user_id)
+      .catch(next);
+    
+    if (!user) {
+      return next({ message: 'Invalid data.' });
+    };
+
+    delete user.password;
+
+    req.user = user;
+
+    next();
   })
   .get((req, res) => {
-    const db = req.app.get('db');
-    const user = {
-      id: res.user.user_id, username: xss(res.user.username),
-      firstName: xss(res.user.first_name),
-      lastName: xss(res.user.last_name), email: xss(res.user.email), 
-      tools: xss(res.user.tools), startDate: xss(res.user.start_date),
-      github: xss(res.user.github), role: xss(res.user.role)
-    };
-    return res.json(user);
+
+    return res.json(req.user);
+
   })
-  .patch((req, res, next) => {
+  .patch(async (req, res, next) => {
     const db = req.app.get('db');
-    const id = req.params.userID;
+    const { user_id } = req.user;
+
     const {
-      username, firstName, lastName, email, 
-      tools, startDate, github
+      username, firstName, lastName, email, github
     } = req.body;
-    const user = {
-     username: xss(username), first_name: xss(firstName),
-      last_name: xss(lastName), email: xss(email), 
-      tools: xss(tools), start_date: xss(startDate),
-      github: xss(github)
+
+    const values = { username, firstName, lastName, email, github };
+
+    for (const [key, value] of Object.entries(values)) {
+      if (!value) {
+        delete values[key];
+      };
     };
-    Object.entries(user).forEach(([key, value]) => {
-      if (key === 'tools' || key === 'github') return;
-      if (!value) next({message: 'Missing values.'});
-    });
-    delete user.start_date;
-    UsersService.editUser(db, id, user)
-      .then(user => {
-        delete user.password; 
-        return res.status(201).send(user);
-      })
-      .catch(error => res.status(400).send({ error }));
+
+    const editedUser = await UsersService.editUser(db, user_id, values)
+      .catch(error => {
+        if (error.detail.includes('username')) {
+          return res.status(400).send({ error: 'Username taken.'})
+        } else if (error.detail.includes('email')) {
+          return res.status(400).send({ error: 'Email taken.'})
+        } else {
+          return res.json({ error });
+        }
+      });
+    
+    delete editedUser.password;
+
+    return res.status(201).send(editedUser);
   })
-  .delete((req, res) => {
-    const { userID } = req.params;
+  .delete(async (req, res, next) => {
     const db = req.app.get('db');
-    UsersService.deleteUser(db, userID)
-      .then(() => res.status(301).end())
-      .catch(error => next({ error }));
+    const { user_id } = req.user;
+
+    await UsersService.deleteUser(db, user_id)
+      .catch(next);
+    
+    return res.status(301).end();
   });
+
 
 UsersRouter.route('/api/usernames')
-  .get((req, res) => {
+  .get(async (req, res, next) => {
     const db = req.app.get('db');
-    UsersService.getUsernames(db)
-      .then(usernames => {
-        return res.json(usernames);
-      })
-      .catch(error => res.status(400).send({ error }));
+    
+    const usernames = await UsersService.getUsernames(db)
+      .catch(next);
+    
+    return res.json(usernames);
   });
 
-UsersRouter.route('/api/:username')
-  .get((req, res) => {
-    const username = req.params.username;
-    UsersService.getByUsername(username)
-      .then(user => {
-        if (!res) res.status(400).send({ error: 'Invalid data.'})
-        return res.json(user);
-      })
-      .catch(error => next({ error }));
+UsersRouter.route('/api/usernames/:username')
+  .get(async (req, res, next) => {
+    const db = req.app.get('db');
+    const { username } = req.params;
+
+    const user = await UsersService.getByUsername(db, username)
+      .catch(next)
+    
+    delete user.password;
+
+    if (!user) {
+      return res.status(400).send({ error: 'Invalid data.' });
+    };
+
+    return res.json(user);
   });
 
 module.exports = UsersRouter;

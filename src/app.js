@@ -1,17 +1,15 @@
-require('dotenv').config();
 const express = require('express');
 const morgan = require('morgan');
-const winston = require('winston');
 const helmet = require('helmet');
 const cors = require('cors');
-const errorHandler = require('./middleware/error-handler');
-const ProjectsRouter = require('./middleware/routers/projects-router');
-const IssuesRouter = require('./middleware/routers/issues-router');
-const UsersRouter = require('./middleware/routers/users-router');
-const LandingRouter = require('./middleware/routers/landing-router');
-const AccessRouter = require('./middleware/routers/access-router');
-
+const winston = require('winston');
 const { NODE_ENV } = require('./config');
+const ProjectsRouter = require('./routers/projects-router');
+const IssuesRouter = require('./routers/issues-router');
+const UsersRouter = require('./routers/users-router');
+const LandingRouter = require('./routers/landing-router');
+const AccessRouter = require('./routers/access-router');
+const errorHandler = require('./middleware/error-handler');
 
 const app = express();
 const morganOption =

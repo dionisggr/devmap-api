@@ -10,7 +10,8 @@ The DevMap App is directed for developers who wish to maintain a simple log of t
 https://afternoon-dawn-05389.herokuapp.com
 
 #### Client Live:
-https://devmap.vercel.app
+<!-- https://devmap.vercel.app -->
+*(Under Revamp)*
 
 #### Client GitHub:
 https://github.com/dionisggr/devmap
