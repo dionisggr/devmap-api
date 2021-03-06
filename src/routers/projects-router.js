@@ -1,5 +1,6 @@
 const express = require('express');
 const UsersService = require('../services/users-service');
+const IssuesService = require('../services/issues-service');
 const ProjectsService = require('../services/projects-service');
 const ToolsService = require('../services/tools-service');
 const { authorization } = require('../middleware/validation');
@@ -11,13 +12,14 @@ ProjectsRouter.route('/api/projects')
   .get(async (req, res, next) => {
     const db = req.app.get('db');
 
-    console.log('CONSOLE')
-
     const projects = await ProjectsService.getProjects(db)
       .catch(next);
     
     for (project of projects) {
-      project.tools = await ToolsService.getProjectTools(db, project.project_id);
+      const { project_id } = project;
+
+      project.issues = await IssuesService.getProjectIssues(db, project_id)
+      project.tools = await ToolsService.getProjectTools(db, project_id);
     };
     
     return res.json(projects);
@@ -30,7 +32,7 @@ ProjectsRouter.route('/api/projects')
     } = req.body;
 
     const project = {
-      name, user_id, description, phase, status, github, tools
+      name, user_id, description, phase, status, github
     };
 
     // Detect nulls and convert strings to XSS
@@ -59,10 +61,10 @@ ProjectsRouter.route('/api/projects')
       tool.project_id = newProject.project_id;
     });
 
-    newProject.tools = tools;
-
     await ToolsService.addToProject(db, tools)
       .catch(next);
+    
+    newProject.tools = await ToolsService.getProjectTools(db, newProject.project_id);
     
     return res.status(201).json(newProject);
   });
@@ -73,6 +75,11 @@ ProjectsRouter.route('/api/projects/:id')
     const project_id = parseInt(req.params.id);
 
     req.project = await ProjectsService.getById(db, project_id)
+      .catch(next);
+    
+    req.project.issues = await IssuesService.getProjectIssues(db, project_id);
+
+    req.project.tools = await ToolsService.getProjectTools(db, project_id)
       .catch(next);
     
     next();

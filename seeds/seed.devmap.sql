@@ -17,12 +17,12 @@ VALUES
   ('Conquer The World', 'A daily goal attempt.', 'Development', 'Help', '12-22-2020', 3, 'https://www.dioveloper.com');
 
 INSERT INTO issues
-  (name, description, project_id, phase, status, start_date, user_id, github)
+  (name, description, project_id, phase, status, start_date)
 VALUES
-  ('Urgent CSS', 'Revamping for project showcasing.', 1, 'Design', 'Delayed', '12-22-2020', 1, 'https://github.com/dionisggr/devmap'),
-  ('API refactoring', 'Big changes on database and responses', 1, 'Design', 'In-Progress', '12-23-2020', 1, 'https://github.com/dionisggr/devmap-api'),
-  ('Pinky doesn''t help', 'Tried everything', 3, 'Development', 'Help', '12-22-2020', 1, 'https://www.dioveloper.com');
-
+  ('Urgent CSS', 'Revamping for project showcasing.', 1, 'Design', 'Delayed', '12-22-2020'),
+  ('API refactoring', 'Big changes on database and responses', 1, 'Design', 'In-Progress', '12-23-2020'),
+  ('Pinky doesn''t help', 'Tried everything', 3, 'Development', 'Help', '12-22-2020');
+  
 INSERT INTO tools
   (name)
 VALUES
@@ -82,11 +82,11 @@ VALUES
   (2, 11),
   (2, 12),
   (2, 13),
-  (1, 14),
-  (1, 15),
-  (1, 16),
-  (1, 17),
-  (1, 18),
+  (2, 14),
+  (2, 15),
+  (2, 16),
+  (2, 17),
+  (2, 18),
   (3, 19),
   (3, 20),
   (3, 21);
@@ -125,11 +125,11 @@ VALUES
   (2, 11),
   (2, 12),
   (2, 13),
-  (1, 14),
-  (1, 15),
-  (1, 16),
-  (1, 17),
-  (1, 18),
+  (2, 14),
+  (2, 15),
+  (2, 16),
+  (2, 17),
+  (2, 18),
   (3, 19),
   (3, 20),
   (3, 21);

@@ -28,9 +28,7 @@ CREATE TABLE IF NOT EXISTS issues (
   phase phase NOT NULL,
   status status NOT NULL,
   start_date TIMESTAMP DEFAULT now(),
-  github TEXT,
-  project_id INTEGER REFERENCES projects(project_id) ON DELETE CASCADE ON UPDATE CASCADE,
-  user_id INTEGER REFERENCES users(user_id) ON DELETE CASCADE ON UPDATE CASCADE
+  project_id INTEGER REFERENCES projects(project_id) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 CREATE TABLE IF NOT EXISTS tools (

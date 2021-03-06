@@ -11,7 +11,8 @@ const ToolsService = {
   ,
   getProjectTools: (db, project_id) => {
     return db.from('project_tools')
-      .select('*')
+      .select('tools.tool_id', 'name')
+      .join('tools', { 'project_tools.tool_id': 'tools.tool_id' })
       .where({ project_id })
   }
   ,

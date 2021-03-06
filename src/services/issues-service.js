@@ -4,6 +4,12 @@ const IssuesService = {
       .select('*');
   }
   ,
+  getProjectIssues(db, project_id) {
+    return db.from('issues')
+      .select('*')
+      .where({ project_id });
+  }
+  ,
   addIssue(db, issue) {
     return db.into('issues')
       .insert(issue)
