@@ -1,6 +1,4 @@
 # DevMap App
-*(Currently going through CSS revamp)*
-
 The DevMap App is directed for developers who wish to maintain a simple log of their projects and issues, and even share them with their team! The app looks to facilitate the sharing of essential project health information among peers for a simpler collaboration dynamic.
 
 ---
@@ -10,8 +8,8 @@ The DevMap App is directed for developers who wish to maintain a simple log of t
 https://afternoon-dawn-05389.herokuapp.com
 
 #### Client Live:
-<!-- https://devmap.vercel.app -->
-*(Under Revamp)*
+https://devmap.vercel.app \
+*(Under Revamp, minimum CSS)*
 
 #### Client GitHub:
 https://github.com/dionisggr/devmap
